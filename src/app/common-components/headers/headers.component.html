@@ -1,0 +1,136 @@
+<div class="navbar bg-base-200 flex justify-between">
+  <div class="navbar-start">
+    <div class="dropdown">
+      <label tabindex="0" class="btn btn-ghost lg:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h8m-8 6h16"
+          />
+        </svg>
+      </label>
+      <nav
+        tabindex="0"
+        class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+      >
+        <ul>
+          <li class="mx-2 no-underline">
+            <a
+              [routerLink]="'/'"
+              routerLinkActive="active"
+              class="link"
+              [class.active]="isActive('/')"
+              >Home</a
+            >
+          </li>
+          <li class="mx-2">
+            <a
+              [routerLink]="'/blog'"
+              routerLinkActive="active"
+              class="link"
+              [class.active]="isActive('/blog')"
+              >Blog</a
+            >
+          </li>
+          <!-- <li><a [routerLink]="'/login'" class="link">Sign In</a></li> -->
+
+          <ng-container *ngIf="user?.uid; else guestMenu">
+            <li class="mx-2">
+              <a
+                [routerLink]="'/dashboard'"
+                routerLinkActive="active"
+                class="link"
+                [class.active]="isActive('/dashboard')"
+                >Dashboard</a
+              >
+            </li>
+            <li class="mx-2">
+              <a class="link">{{ user?.displayName }}</a>
+            </li>
+            <li class="mx-2">
+              <button (click)="handleLogOut()">Sign out</button>
+            </li>
+          </ng-container>
+
+          <ng-template #guestMenu>
+            <li class="mx-2">
+              <a
+                [routerLink]="'/login'"
+                routerLinkActive="active"
+                class="link"
+                [class.active]="isActive('/login')"
+                >Sign In</a
+              >
+            </li>
+            <li class="mx-2">
+              <a
+                [routerLink]="'/register'"
+                routerLinkActive="active"
+                class="link"
+                [class.active]="isActive('/register')"
+                >Sign Up</a
+              >
+            </li>
+          </ng-template>
+        </ul>
+        <!-- <ng-template #noMenuItems>Menu items not available.</ng-template> -->
+      </nav>
+    </div>
+    <img
+      class="rounded-full"
+      [style.width.px]="40"
+      [style.height.px]="40"
+      src="https://i.ibb.co/qnsNZHr/logofilnal.jpg"
+      alt="logo"
+    />
+    <a routerLink="/" class="btn btn-ghost normal-case text-xl"
+      >Ayesha Auto Reseller</a
+    >
+  </div>
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal p-0">
+      <li class="mx-2">
+        <a
+          [routerLink]="'/'"
+          routerLinkActive="active"
+          class="link"
+          [class.active]="isActive('/')"
+          >Home</a
+        >
+      </li>
+      <li class="mx-2">
+        <a
+          [routerLink]="'/blog'"
+          routerLinkActive="active"
+          class="link"
+          [class.active]="isActive('/blog')"
+          >Blog</a
+        >
+      </li>
+    </ul>
+  </div>
+  <label for="dashboard-drawer" tabindex="2" class="btn btn-ghost lg:hidden">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 6h16M4 12h8m-8 6h16"
+      />
+    </svg>
+  </label>
+</div>
