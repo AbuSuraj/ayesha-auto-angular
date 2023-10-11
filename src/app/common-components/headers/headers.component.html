@@ -23,34 +23,20 @@
       >
         <ul>
           <li class="mx-2 no-underline">
-            <a
-              [routerLink]="'/'"
-              routerLinkActive="active"
-              class="link"
-              [class.active]="isActive('/')"
-              >Home</a
-            >
+            <a [routerLink]="'/'" class="link">Home</a>
           </li>
           <li class="mx-2">
-            <a
-              [routerLink]="'/blog'"
-              routerLinkActive="active"
-              class="link"
-              [class.active]="isActive('/blog')"
-              >Blog</a
-            >
+            <a [routerLink]="'/blog'" class="link">Blog</a>
+          </li>
+          <!-- this dashboard is temporary -->
+          <li class="mx-2">
+            <a [routerLink]="'/dashboard'" class="link">Dashboard</a>
           </li>
           <!-- <li><a [routerLink]="'/login'" class="link">Sign In</a></li> -->
 
           <ng-container *ngIf="user?.uid; else guestMenu">
             <li class="mx-2">
-              <a
-                [routerLink]="'/dashboard'"
-                routerLinkActive="active"
-                class="link"
-                [class.active]="isActive('/dashboard')"
-                >Dashboard</a
-              >
+              <a [routerLink]="'/dashboard'" class="link">Dashboard</a>
             </li>
             <li class="mx-2">
               <a class="link">{{ user?.displayName }}</a>
@@ -62,22 +48,10 @@
 
           <ng-template #guestMenu>
             <li class="mx-2">
-              <a
-                [routerLink]="'/login'"
-                routerLinkActive="active"
-                class="link"
-                [class.active]="isActive('/login')"
-                >Sign In</a
-              >
+              <a [routerLink]="'/login'" class="link">Sign In</a>
             </li>
             <li class="mx-2">
-              <a
-                [routerLink]="'/register'"
-                routerLinkActive="active"
-                class="link"
-                [class.active]="isActive('/register')"
-                >Sign Up</a
-              >
+              <a [routerLink]="'/register'" class="link">Sign Up</a>
             </li>
           </ng-template>
         </ul>
@@ -98,23 +72,34 @@
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal p-0">
       <li class="mx-2">
-        <a
-          [routerLink]="'/'"
-          routerLinkActive="active"
-          class="link"
-          [class.active]="isActive('/')"
-          >Home</a
-        >
+        <a [routerLink]="'/'" class="link">Home</a>
       </li>
       <li class="mx-2">
-        <a
-          [routerLink]="'/blog'"
-          routerLinkActive="active"
-          class="link"
-          [class.active]="isActive('/blog')"
-          >Blog</a
-        >
+        <a [routerLink]="'/blog'" class="link">Blog</a>
       </li>
+      <li class="mx-2">
+        <a [routerLink]="'/dashboard'" class="link">Dashboard</a>
+      </li>
+      <ng-container *ngIf="user?.uid; else guestMenu">
+        <li class="mx-2">
+          <a [routerLink]="'/dashboard'" class="link">Dashboard</a>
+        </li>
+        <li class="mx-2">
+          <a class="link">{{ user?.displayName }}</a>
+        </li>
+        <li class="mx-2">
+          <button (click)="handleLogOut()">Sign out</button>
+        </li>
+      </ng-container>
+
+      <ng-template #guestMenu>
+        <li class="mx-2">
+          <a [routerLink]="'/login'" class="link">Sign In</a>
+        </li>
+        <li class="mx-2">
+          <a [routerLink]="'/register'" class="link">Sign Up</a>
+        </li>
+      </ng-template>
     </ul>
   </div>
   <label for="dashboard-drawer" tabindex="2" class="btn btn-ghost lg:hidden">
