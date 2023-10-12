@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faEye, faEyeSlash,  } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faEye, faEyeSlash,  } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -10,6 +10,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent {
   faEye = faEye;
   faEyeSlash = faEyeSlash;
+  faEmail =  faEnvelope
   loginForm: FormGroup;
   showPassword: boolean = false;
   loginError!: string;
@@ -17,11 +18,18 @@ export class LoginComponent {
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6),  Validators.pattern(/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/)]],
     });
   }
 
-  onSubmit() {
+  onSubmit(user:any) {
+    console.log(user);
+    this.loginForm.markAllAsTouched();
+    if (this.loginForm.valid) {
+      this.loginError = '';
+    } else {
+      this.loginError = 'Please fill out the form correctly.';
+    }
     // Handle form submission, including validation
   }
 
