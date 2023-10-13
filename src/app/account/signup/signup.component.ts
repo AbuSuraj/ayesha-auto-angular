@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faEnvelope, faEye, faEyeSlash,  } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -13,7 +14,7 @@ export class SignupComponent {
   signupForm: FormGroup;
   signupError: string = '';
   showPassword: boolean = false;
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.signupForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -25,7 +26,14 @@ export class SignupComponent {
   onSubmit(user:any) {
     this.signupForm.markAllAsTouched()
     if (this.signupForm.valid) {
-      this.signupError = ''
+      this.signupError = '';
+      console.log(user.name)
+      const userInfo = {
+        displayName: user.name,
+      };
+      this.authService.signUpWithEmail(user.email, user.password);
+      this.authService.updateUserProfile(user.name);
+     console.log(this.authService.getAuthFire())
       console.log(user);
       //
     } else {

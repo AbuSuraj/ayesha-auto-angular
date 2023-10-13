@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { faEnvelope, faEye, faEyeSlash,  } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent {
   showPassword: boolean = false;
   loginError!: string;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6),  Validators.pattern(/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/)]],
@@ -27,6 +28,8 @@ export class LoginComponent {
     this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {
       this.loginError = '';
+      this.authService.loginWithEmail(user.email, user.password);
+      
     } else {
       this.loginError = 'Please fill out the form correctly.';
     }
@@ -38,7 +41,7 @@ export class LoginComponent {
   }
 
   handleGoogleSignin() {
-    // Implement Google login logic here
+    this.authService.loginWithGoogle()
   }
 
 }
