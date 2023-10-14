@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-headers',
   templateUrl: './headers.component.html',
@@ -12,7 +12,7 @@ export class HeadersComponent implements OnInit {
   menuItems: any; 
   activeRoute: ActivatedRoute;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, private authService: AuthService,  private tost: ToastrService) {
     this.activeRoute = route;
    
   }
@@ -31,5 +31,7 @@ export class HeadersComponent implements OnInit {
 
   handleLogOut(): void {
     this.authService.logout();
+    this.tost.info('Logged out')
+
   }
 }
