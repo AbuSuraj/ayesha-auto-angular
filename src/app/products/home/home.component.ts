@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SlideInterface } from 'src/app/shared/interfaces/sliders';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent {
-
+  slides: SlideInterface[] = [
+    { url: '../../../../assets/images/banner1', title: 'Ford' },
+    { url: '../../../../assets/images/banner2.jpg', title: 'Nissan' },
+    { url: '../../../../assets/images/banner3.jpg', title: 'BMW' },
+    { url: '../../../../assets/images/banner4.jpg', title: 'Toyeta' },
+    { url: '../../../../assets/images/banner-2.jpg', title: 'Axela' },
+  ];
 }
