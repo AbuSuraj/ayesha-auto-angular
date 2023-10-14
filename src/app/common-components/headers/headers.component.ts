@@ -31,6 +31,5 @@ export class HeadersComponent implements OnInit {
 
   handleLogOut(): void {
     this.authService.logout();
-    // Handle the logout logic here
   }
 }

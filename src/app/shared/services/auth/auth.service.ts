@@ -81,7 +81,7 @@ export class AuthService {
     return this.auth.createUserWithEmailAndPassword(email, password)
     .then((result)=>{
       // this.snedVerificationMail()
-      this.SetUserData(result.user)
+      // this.SetUserData(result.user)
       this.router.navigate(['dashboard']);
     })
     .catch((error)=>{
@@ -94,7 +94,7 @@ export class AuthService {
   loginWithEmail(email: string, password: string) {
     return this.auth.signInWithEmailAndPassword(email, password)
     .then((result) =>{
-      this.SetUserData(result.user);
+      // this.SetUserData(result.user);
       this.auth.authState.subscribe((user)=>{
         if(user){
           this.router.navigate(['dashboard']);
@@ -133,19 +133,19 @@ export class AuthService {
        
     }
 
-  SetUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
-      `users/${user.uid}`
-    );
-    const userData: User = {
-      uid: user.uid,
-      email: user.email,
-      name: user.name,
-      photoURL: user.photoURL,
-      // emailVerified: user.emailVerified,
-    };
-    return userData;
-  }
+  // SetUserData(user: any) {
+  //   const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
+  //     `users/${user.uid}`
+  //   );
+  //   const userData: User = {
+  //     uid: user.uid,
+  //     email: user.email,
+  //     name: user.name,
+  //     photoURL: user.photoURL,
+  //     // emailVerified: user.emailVerified,
+  //   };
+  //   return userData;
+  // }
   
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);

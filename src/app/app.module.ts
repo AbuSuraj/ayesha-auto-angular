@@ -6,12 +6,12 @@ import { AppComponent } from './app.component';
 import { HeadersComponent } from './common-components/headers/headers.component';
 import { FooterComponent } from './common-components/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
 import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 import {AngularFireModule} from '@angular/fire/compat';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import { environment } from 'environments/environment.prod';
 import { AuthService } from './shared/services/auth/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +23,8 @@ import { AuthService } from './shared/services/auth/auth.service';
     AppRoutingModule,
     FontAwesomeModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule,
   ],
   // exports: [ HeadersComponent,
   //   FooterComponent],

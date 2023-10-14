@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faEnvelope, faEye, faEyeSlash,  } from '@fortawesome/free-solid-svg-icons';
+import { User } from 'src/app/shared/interfaces/user';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -14,7 +16,7 @@ export class SignupComponent {
   signupForm: FormGroup;
   signupError: string = '';
   showPassword: boolean = false;
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UsersService) {
     this.signupForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -27,14 +29,20 @@ export class SignupComponent {
     this.signupForm.markAllAsTouched()
     if (this.signupForm.valid) {
       this.signupError = '';
+      let userData = {
+        name: user.name,
+        email: user.email,
+        userType: user.userType
+      }
+      this.userService.createUser(userData).subscribe()
       console.log(user.name)
       const userInfo = {
         displayName: user.name,
       };
       this.authService.signUpWithEmail(user.email, user.password);
       this.authService.updateUserProfile(user.name);
-     console.log(this.authService.getAuthFire())
-      console.log(user);
+    //  console.log(this.authService.getAuthFire())
+    //   console.log(user);
       //
     } else {
       this.signupError = 'Please fill out the form correctly.';
@@ -46,6 +54,14 @@ export class SignupComponent {
   }
 
   handleGoogleSignin() {
-    // Implement Google login logic here
+    this.authService.loginWithGoogle().then((user) => {
+      const userInfo: User = {
+        name:user?.user?.displayName ,
+        email:user.user?.email,
+        userType: 'Buyer'
+      } 
+   
+      this.userService.createUser(userInfo).subscribe()
+    }) 
   }
 }
