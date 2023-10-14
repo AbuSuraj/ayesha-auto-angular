@@ -1,1 +1,68 @@
-<p>login works!</p>
+<div class="h-full flex justify-center my-10">
+  <div class="w-96 p-7 backdrop-blur-0 backdrop-saturate-144  bg-black border-opacity-25 border-white border-solid border-1 rounded-xl">
+    <h2 class="text-xl text-center text-white">Sign In</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+      <div class="form-control w-full max-w-xs">
+        <label class="label">
+          <span class="label-text text-white">Email</span>
+        </label>
+        <div class="relative">
+          <input [ngClass]="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched || loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched ? 'red-border' : ''" formControlName="email" type="text" class="input input-bordered w-full max-w-xs pl-10" placeholder="Email" />
+          <fa-icon class="icon user-icon absolute left-3 top-3" [icon]="faEmail"></fa-icon>
+        </div>
+        <div *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched" class="text-red-600">Email Address is required.</div>
+        <div *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched" class="text-red-600">Invalid email format.</div>
+      </div>
+      <div class="form-control w-full max-w-xs relative">
+        <label class="label">
+          <span class="label-text text-white">Password</span>
+        </label>
+        <div class="relative">
+          <input [ngClass]="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched || loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched ? 'red-border' : ''"
+            formControlName="password" [type]="showPassword ? 'text' : 'password'" class="input input-bordered w-full max-w-xs pl-10" placeholder="Password" />
+          <svg stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" class="icon lock-icon absolute left-3 top-3">
+            <path
+              d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" stroke-linejoin="round" stroke-linecap="round"></path>
+          </svg>
+          <button type="button" class="absolute inset-y-0 right-0 px-2" (click)="togglePasswordVisibility()">
+            <fa-icon [icon]="showPassword ? faEyeSlash : faEye"></fa-icon>
+          </button>
+        </div>
+        <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" class="text-red-600">Password is required.</div>
+        <div *ngIf="loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched" class="text-red-600">Password must be 6 characters or longer.</div>
+        <div *ngIf="loginForm.get('password')?.hasError('pattern') && loginForm.get('password')?.touched" class="text-red-600">Password must have uppercase, number, and special characters.</div>
+      </div>
+      <label class="label">
+        <span class="label-text text-white">Forget Password?</span>
+      </label>
+      <button type="submit" class="btn btn-primary w-full">Sign In</button>
+      <div *ngIf="loginError" class="text-red-600">{{ loginError }}</div>
+    </form>
+    <p class="text-white">
+      New to this site?
+      <a class="text-secondary" routerLink="/account/signup">Create new Account</a>
+    </p>
+    <div class="divider text-white">OR</div>
+    <button (click)="handleGoogleSignin()" class="btn btn-outline  w-full text-white">
+      <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" x="0px" y="0px" class="google-icon" viewBox="0 0 48 48" height="3rem" width="3rem" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12
+          c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24
+          c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
+        <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657
+          C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path>
+        <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36
+          c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path>
+        <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571
+          c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+      </svg>
+      CONTINUE WITH GOOGLE
+    </button>
+    
+    <div class="mt-2">
+      <h6 class="text-red-600">Login Credential</h6>
+      <p class="text-white text-sm">Admin: abusurajbd@gmail.com, pass: @bSuraj123</p>
+      <p class="text-white text-sm">Seller: sarwar@b.com, pass: @bSuraj123</p>
+      <p class="text-white text-sm">Login with Google is counted as a Buyer</p>
+    </div>
+  </div>
+</div>

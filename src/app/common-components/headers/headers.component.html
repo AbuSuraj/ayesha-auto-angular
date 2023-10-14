@@ -29,9 +29,9 @@
             <a [routerLink]="'/blog'" class="link">Blog</a>
           </li>
           <!-- this dashboard is temporary -->
-          <li class="mx-2">
+          <!-- <li class="mx-2">
             <a [routerLink]="'/dashboard'" class="link">Dashboard</a>
-          </li>
+          </li> -->
           <!-- <li><a [routerLink]="'/login'" class="link">Sign In</a></li> -->
 
           <ng-container *ngIf="user?.uid; else guestMenu">
@@ -39,6 +39,7 @@
               <a [routerLink]="'/dashboard'" class="link">Dashboard</a>
             </li>
             <li class="mx-2">
+              <!-- <img class="w-7 h-7 rounded-full" [src]="user?.photoURL" alt="user"> -->
               <a class="link">{{ user?.displayName }}</a>
             </li>
             <li class="mx-2">
@@ -77,14 +78,15 @@
       <li class="mx-2">
         <a [routerLink]="'/blog'" class="link">Blog</a>
       </li>
-      <li class="mx-2">
+      <!-- <li class="mx-2">
         <a [routerLink]="'/dashboard'" class="link">Dashboard</a>
-      </li>
+      </li> -->
       <ng-container *ngIf="user?.uid; else guestMenu">
         <li class="mx-2">
           <a [routerLink]="'/dashboard'" class="link">Dashboard</a>
         </li>
         <li class="mx-2">
+          <!-- <img class="w-7 h-7 " [src]="user?.photoURL" alt="user"> -->
           <a class="link">{{ user?.displayName }}</a>
         </li>
         <li class="mx-2">
