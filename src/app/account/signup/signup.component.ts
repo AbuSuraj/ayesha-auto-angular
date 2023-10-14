@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faEnvelope, faEye, faEyeSlash,  } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/shared/interfaces/user';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
@@ -17,7 +18,7 @@ export class SignupComponent {
   signupForm: FormGroup;
   signupError: string = '';
   showPassword: boolean = false;
-  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UsersService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UsersService, private router: Router, private toastr: ToastrService) {
     this.signupForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -35,14 +36,20 @@ export class SignupComponent {
         email: user.email,
         userType: user.userType
       }
-      this.userService.createUser(userData).subscribe();
-      this.getToken(user.email)
-      console.log(user.name)
-      const userInfo = {
-        displayName: user.name,
-      };
-      this.authService.signUpWithEmail(user.email, user.password);
-      this.authService.updateUserProfile(user.name);
+      this.userService.createUser(userData).subscribe(()=>{
+        this.authService.signUpWithEmail(user.email, user.password);
+        this.authService.updateUserProfile(user.name);
+        this.getToken(user.email)
+        console.log(user.name)
+        const userInfo = {
+          displayName: user.name,
+        };
+        this.toastr.success('SignUp Successfully!', 'Success');},
+
+        (err)=>{
+          this.toastr.error(`${err}`, 'Error');
+        }
+      );
     } else {
       this.signupError = 'Please fill out the form correctly.';
     }
@@ -61,7 +68,13 @@ export class SignupComponent {
       } 
       this.getToken(user.user?.email ?? '')
 
-      this.userService.createUser(userInfo).subscribe()
+      this.userService.createUser(userInfo).subscribe(()=>{
+        this.toastr.success('SignUp Successfully!', 'Success');},
+
+        (err)=>{
+          this.toastr.error(`${err}`, 'Error');
+        }
+      )
     }) 
   }
 

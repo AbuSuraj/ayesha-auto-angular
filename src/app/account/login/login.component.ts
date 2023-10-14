@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent {
   showPassword: boolean = false;
   loginError!: string;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UsersService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UsersService, private router: Router,  private toastr: ToastrService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6),  Validators.pattern(/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/)]],
@@ -32,9 +33,11 @@ export class LoginComponent {
       this.loginError = '';
       this.authService.loginWithEmail(user.email, user.password);
      this.getToken(user.email);
+     this.toastr.success('Login Successfully!', 'Success');
       
     } else {
       this.loginError = 'Please fill out the form correctly.';
+      this.toastr.success('Login Failed!', 'error');
     }
     // Handle form submission, including validation
   }
@@ -46,6 +49,7 @@ export class LoginComponent {
   handleGoogleSignin() {
     this.authService.loginWithGoogle().then((user)=>{
      const email =  user.user?.email ?? '';
+     this.toastr.success('Login Successfully!', 'Success');
      this.getToken(email)
     })
   }
