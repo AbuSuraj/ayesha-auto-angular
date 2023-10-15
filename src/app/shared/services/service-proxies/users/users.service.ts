@@ -21,4 +21,12 @@ export class UsersService {
     return this.http.post<User>(`${this.BASE_URL}/users`, body, { headers });
   }
 
+  getSellers():Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    });
+    return this.http.get(`${this.BASE_URL}/sellers`, {headers})
+  }
+
 }

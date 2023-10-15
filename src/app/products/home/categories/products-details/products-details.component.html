@@ -1,1 +1,8 @@
-<p>products-details works!</p>
+<div *ngIf="products?.length !==0; else noCarBlock" class="pb-5 mx-auto my-10 shadow-2xl rounded-xl">
+    <div class='grid gap-6 ml-20 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-10' *ngFor="let product of products">
+        
+    </div>
+</div>
+<ng-template #noCarBlock>
+    <h1 class='text-center font-bold'>No car Available for this category</h1>
+</ng-template>

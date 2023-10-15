@@ -12,10 +12,12 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {}
 
+  // get cateogries
   getCategories(): Observable<Categories []> {
     return this.http.get<Categories []>(`${this.BASE_URL}/categories`);
   }
 
+  // get products
   getProductsByCategory(id: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -24,4 +26,6 @@ export class ProductsService {
 
     return this.http.get<any>(`${this.BASE_URL}/category/${id}`, { headers });
   }
+
+  
 }

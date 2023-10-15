@@ -32,8 +32,8 @@ export class LoginComponent {
     this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {
       this.loginError = '';
-      this.authService.loginWithEmail(user.email, user.password);
-     this.getToken(user.email);
+      this.getToken(user.email);
+      this.authService.loginWithEmail(user.email, user.password).then(() => {});
      this.toastr.success('Login Successfully!', 'Success');
       
     } else {
@@ -52,15 +52,15 @@ export class LoginComponent {
     this.authService.loginWithGoogle().then((user)=>{
       email =  user.user?.email ?? '';
     //  this.toastr.success('Login Successfully!', 'Success');
+    this.getToken(email)
     this.router.navigate(['']);
     })
-    this.getToken(email)
   }
 
   getToken(email:string){
     
-    this.authTokenService.getToken(email).subscribe((token: string) => {
-      localStorage.setItem('accessToken', token);
+    this.authTokenService.getToken(email).subscribe((token: any) => {
+      localStorage.setItem('accessToken', token.accessToken);
       this.router.navigate(['']);
     });
   }
