@@ -47,11 +47,13 @@ export class LoginComponent {
   }
 
   handleGoogleSignin() {
+    let  email = '';
     this.authService.loginWithGoogle().then((user)=>{
-     const email =  user.user?.email ?? '';
-     this.toastr.success('Login Successfully!', 'Success');
-     this.getToken(email)
+      email =  user.user?.email ?? '';
+    //  this.toastr.success('Login Successfully!', 'Success');
+    this.router.navigate(['']);
     })
+    this.getToken(email)
   }
 
   getToken(email:string){
