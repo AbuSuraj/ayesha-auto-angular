@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthTokenService } from 'src/app/shared/services/service-proxies/authorization/auth-token.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent {
   showPassword: boolean = false;
   loginError!: string;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UsersService, private router: Router,  private toastr: ToastrService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UsersService, private router: Router,  private toastr: ToastrService, private authTokenService: AuthTokenService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6),  Validators.pattern(/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/)]],
@@ -58,7 +59,7 @@ export class LoginComponent {
 
   getToken(email:string){
     
-    this.userService.getToken(email).subscribe((token: string) => {
+    this.authTokenService.getToken(email).subscribe((token: string) => {
       localStorage.setItem('accessToken', token);
       this.router.navigate(['']);
     });

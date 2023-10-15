@@ -16,12 +16,9 @@ export class UsersService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
+    const body = JSON.stringify(user);
 
-    return this.http.post<User>(`${this.BASE_URL}/users`, user, { headers });
+    return this.http.post<User>(`${this.BASE_URL}/users`, body, { headers });
   }
 
-  // get auth token from
-  getToken(email: string): Observable<string> {
-    return this.http.get<string>(`${this.BASE_URL}/jwt?email=${email}`);
-  }
 }

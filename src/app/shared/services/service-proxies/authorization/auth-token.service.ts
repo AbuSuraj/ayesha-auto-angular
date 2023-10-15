@@ -1,17 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Categories } from '../../interfaces/categories';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsService {
+export class AuthTokenService {
   private BASE_URL = 'https://ayeshaauto.vercel.app';
 
   constructor(private http: HttpClient) {}
 
-  getCategories(): Observable<Categories []> {
-    return this.http.get<Categories []>(`${this.BASE_URL}/categories`);
+  // get auth token from
+  getToken(email: string): Observable<string> {
+    return this.http.get<string>(`${this.BASE_URL}/jwt?email=${email}`);
   }
+
+  
 }

@@ -5,6 +5,7 @@ import { faEnvelope, faEye, faEyeSlash,  } from '@fortawesome/free-solid-svg-ico
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/shared/interfaces/user';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { AuthTokenService } from 'src/app/shared/services/service-proxies/authorization/auth-token.service';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
 @Component({
   selector: 'app-signup',
@@ -18,7 +19,7 @@ export class SignupComponent {
   signupForm: FormGroup;
   signupError: string = '';
   showPassword: boolean = false;
-  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UsersService, private router: Router, private toastr: ToastrService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UsersService, private router: Router, private toastr: ToastrService, private authTokenService: AuthTokenService) {
     this.signupForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -66,9 +67,9 @@ export class SignupComponent {
         email:user.user?.email,
         userType: 'Buyer'
       } 
-      this.getToken(user.user?.email ?? '')
-
+    
       this.userService.createUser(userInfo).subscribe(()=>{
+        this.getToken(user.user?.email ?? '')
         this.toastr.success('SignUp Successfully!', 'Success');},
 
         (err)=>{
@@ -79,9 +80,9 @@ export class SignupComponent {
   }
 
   getToken(email:string){
-    
-    this.userService.getToken(email).subscribe((token: string) => {
-      localStorage.setItem('accessToken', token);
+    this.authTokenService.getToken(email).subscribe((token: any) => {
+      console.log(token)
+      localStorage.setItem('accessToken', token?.accessToken);
       this.router.navigate(['']);
     });
   }
