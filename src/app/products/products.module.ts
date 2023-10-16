@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { SliderComponent } from './home/slider/slider.component';
 import { CategoriesComponent } from './home/categories/categories.component';
 import { ProductsDetailsComponent } from './home/categories/products-details/products-details.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ProductsDetailsComponent } from './home/categories/products-details/pro
     imports: [
         CommonModule,
         ProductsRoutingModule,
+        FontAwesomeModule
     ]
 })
 export class ProductsModule { }

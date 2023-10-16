@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
+import { catchError } from 'rxjs';
 import { ProductsService } from 'src/app/shared/services/service-proxies/products/products.service';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
 
@@ -11,8 +14,11 @@ import { UsersService } from 'src/app/shared/services/service-proxies/users/user
 export class ProductsDetailsComponent implements OnInit {
   id: any;
   products:any;
-  sellser:any;
-  constructor(private activateRoute: ActivatedRoute, private productsService: ProductsService, private userService: UsersService) {}
+  sellers:any;
+  date = new Date();
+  year = this.date.getFullYear()
+  faCheck = faCheck;
+  constructor(private activateRoute: ActivatedRoute, private productsService: ProductsService, private userService: UsersService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     const id = this.activateRoute.snapshot.paramMap.get('id');
@@ -24,7 +30,14 @@ export class ProductsDetailsComponent implements OnInit {
   }
 
   getProducts(){
-    this.productsService.getProductsByCategory(this.id).subscribe(
+    this.productsService.getProductsByCategory(this.id).pipe(
+      catchError((error) =>{
+        this.toastr.error('Internal Error!', 'Error');
+        console.error(error)
+        return []
+      })
+    )
+    .subscribe(
       (data) => {
         this.products = data;
         console.log(this.products);
@@ -37,8 +50,8 @@ export class ProductsDetailsComponent implements OnInit {
   
   getSellers(){
     this.userService.getSellers().subscribe(data => {
-      this.sellser = data;
-      console.log(this.sellser);
+      this.sellers = data.data;
+      console.log(this.sellers);
     })
   }
 }

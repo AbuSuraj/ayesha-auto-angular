@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Categories } from 'src/app/shared/interfaces/categories';
+import { Product } from 'src/app/shared/interfaces/products';
 // import { Categories } from '../../interfaces/categories';
 
 @Injectable({
@@ -18,14 +19,27 @@ export class ProductsService {
   }
 
   // get products
-  getProductsByCategory(id: string): Observable<any> {
+  getProductsByCategory(id: string): Observable<Product> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
     });
 
-    return this.http.get<any>(`${this.BASE_URL}/category/${id}`, { headers });
+    return this.http.get<Product>(`${this.BASE_URL}/category/${id}`, { headers });
   }
 
+    // report product 
+    reportProduct(product: Product): Observable<Product> {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+      });
   
+      return this.http.post<Product>(
+        `${this.BASE_URL}/report`,
+        product,
+        { headers }
+      );
+    }
+
 }

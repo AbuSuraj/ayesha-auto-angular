@@ -1,8 +1,73 @@
-<div *ngIf="products?.length !==0; else noCarBlock" class="pb-5 mx-auto my-10 shadow-2xl rounded-xl">
-    <div class='grid gap-6 ml-20 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-10' *ngFor="let product of products">
-        
+<div
+  *ngIf="products?.length !== 0; else noCarBlock"
+  class="pb-5 mx-auto my-10 shadow-2xl rounded-xl"
+>  
+
+  <div class="grid gap-6 ml-20 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-10">
+    <div *ngFor="let product of products">
+      <div class="card w-96 bg-base-200 shadow-2xl">
+        <figure>
+          <img class="w-full h-48" [src]="product.image" alt="car" />
+        </figure>
+        <div class="card-body">
+          <h2 class="card-title">
+            {{ product.productName }}
+            <div class="badge badge-secondary">{{ product.condition }}</div>
+          </h2>
+          <div class="h-56">
+            <p>
+              Original Price:
+              <span class="font-bold">${{ product.originalPrice }}</span>
+            </p>
+            <p>
+              Resale Price:
+              <span class="font-bold">${{ product.resalePrice }}</span>
+            </p>
+            <p>
+              Location: <span class="font-bold">{{ product.location }}</span>
+            </p>
+            <p>
+              Contact Number:
+              <span class="font-bold">{{ product.mobile }}</span>
+            </p>
+            <p>
+              <span class="font-bold">Years of used:</span>
+              {{ year - product.purchaseYear }} years
+            </p>
+            <p>
+              <span class="font-bold">Overview:</span>
+              {{ product.productDescription | slice : 0 : 100 }}...
+            </p>
+            <p>
+              <span class="font-bold">Posted Date:</span>
+              {{ product.createdDate | slice : 0 : 10 }}
+            </p>
+            <p class="flex items-center">
+              <span
+                ><span class="font-bold">Seller Name: </span>
+                {{ product.seller }}</span
+              >
+              <span class="text-green-600 ml-2 text-2xl">
+                <ng-container *ngFor="let seller of sellers">
+                  <fa-icon
+                    style="color: #0bd04d"
+                    *ngIf="seller.email === product.email && seller.verify"
+                    [icon]="faCheck"
+                  ></fa-icon>
+                </ng-container>
+              </span>
+            </p>
+          </div>
+          <!-- <div class="card-actions justify-end">
+                    <label (click)="book = product" for="booking-modal" class="btn">Book Now</label>
+                    <button (click)="handleReport(product)" class="btn btn-warning">Report this item</button>
+                  </div>
+                  <app-booking-modal [product]="product" [(showModal)]="book"></app-booking-modal> -->
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <ng-template #noCarBlock>
-    <h1 class='text-center font-bold'>No car Available for this category</h1>
+  <h1 class="text-center font-bold">No car Available for this category</h1>
 </ng-template>
