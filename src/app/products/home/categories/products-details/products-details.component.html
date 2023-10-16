@@ -58,11 +58,13 @@
               </span>
             </p>
           </div>
-          <!-- <div class="card-actions justify-end">
-                    <label (click)="book = product" for="booking-modal" class="btn">Book Now</label>
+          <div class="card-actions justify-end">
+                    <!-- <label (click)="toggleModal( )" for="booking-modal" class="btn">Book Now</label> -->
                     <button (click)="handleReport(product)" class="btn btn-warning">Report this item</button>
                   </div>
-                  <app-booking-modal [product]="product" [(showModal)]="book"></app-booking-modal> -->
+                  <!-- <app-booking-modal  [visible]="modalVisible" (close)="toggleModal()"></app-booking-modal> -->
+                  <button (click)="openBookingModal(product)">Open Booking Modal</button>
+
         </div>
       </div>
     </div>

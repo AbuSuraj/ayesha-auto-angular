@@ -8,6 +8,8 @@ import { SliderComponent } from './home/slider/slider.component';
 import { CategoriesComponent } from './home/categories/categories.component';
 import { ProductsDetailsComponent } from './home/categories/products-details/products-details.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BookingModalComponent } from './home/categories/products-details/booking-modal/booking-modal.component'; 
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -16,12 +18,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         HomeComponent,
         SliderComponent,
         CategoriesComponent,
-        ProductsDetailsComponent
+        ProductsDetailsComponent,
+        BookingModalComponent
     ],
     imports: [
         CommonModule,
         ProductsRoutingModule,
-        FontAwesomeModule
+        FontAwesomeModule, 
+        MatDialogModule
     ]
 })
 export class ProductsModule { }

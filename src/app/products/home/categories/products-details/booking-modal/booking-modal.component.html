@@ -1,0 +1,15 @@
+<!-- <div class="custom-modal" [class.visible]="visible">
+  <div class="modal-content">
+    <h2>Custom Modal</h2>
+    <p>This is your custom modal content.</p>
+    <button (click)="close.emit()">Close</button>
+  </div>
+</div> -->
+<h2 mat-dialog-title>Booking Modal</h2>
+<mat-dialog-content>
+  <!-- Your modal content goes here -->
+  <p>{{ 'product.productName' }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeModal()">Close</button>
+</mat-dialog-actions>
