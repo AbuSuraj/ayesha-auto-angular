@@ -58,6 +58,7 @@
               </span>
             </p>
           </div>
+          <a  [routerLink]="['/category',id, 'booking']" >Book</a>
           <!-- <div class="card-actions justify-end">
                     <label (click)="book = product" for="booking-modal" class="btn">Book Now</label>
                     <button (click)="handleReport(product)" class="btn btn-warning">Report this item</button>
@@ -71,3 +72,4 @@
 <ng-template #noCarBlock>
   <h1 class="text-center font-bold">No car Available for this category</h1>
 </ng-template>
+<router-outlet></router-outlet>
