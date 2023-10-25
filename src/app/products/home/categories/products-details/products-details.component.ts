@@ -51,7 +51,7 @@ export class ProductsDetailsComponent implements OnInit {
     .subscribe(
       (data) => {
         this.products = data;
-        console.log(this.products);
+        // console.log(this.products);
       },
       (error) => {
         console.error('Error fetching products:', error);
@@ -62,7 +62,7 @@ export class ProductsDetailsComponent implements OnInit {
   getSellers(){
     this.userService.getSellers().subscribe(data => {
       this.sellers = data.data;
-      console.log(this.sellers);
+      // console.log(this.sellers);
     })
   }
 
@@ -72,7 +72,14 @@ export class ProductsDetailsComponent implements OnInit {
   }
 
   handleReport(product:Product){
-    console.log(product);
+    // console.log(product);
+    this.productsService.reportProduct(product).subscribe(res =>{
+      this.toastr.success('Report sent to admin')
+    },
+    (er)=>{
+      this.toastr.error('Error sending report to admin', 'Erro')
+    }
+    )
     
   }
 }

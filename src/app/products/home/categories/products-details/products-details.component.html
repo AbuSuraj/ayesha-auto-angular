@@ -57,8 +57,7 @@
           <!-- if data are small then we can pass it with state  -->
           <!-- <button  [routerLink]="['/category',id, 'booking']" [state]="{ product: product }" >Book</button> -->
 
-          <div class="card-actions justify-between items-center mt-7">
-            <!-- <button (click)="addBooking(product)">Book Now</button> -->
+          <div class="card-actions justify-between items-center mt-7"> 
             <div class="booking-button" (mouseenter)="changeTooltip(product.resalePrice)" [appTooltip]="tooltipText">
               <div (click)="addBooking(product)" class="button-wrapper">
                 <div class="text">Book Now</div>
