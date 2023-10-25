@@ -2,33 +2,48 @@
   <h1 class="text-xl text-center font-bold">Booked Your Car</h1>
   <form  [formGroup]="bookingForm" (ngSubmit)="handleBooking(bookingForm.value)">
     <div class="form__group field mx-auto">
-      <input  formControlName="productName" type="text" class="form__field  " placeholder="Product Name" required="">
+      <input readonly formControlName="productName" type="text" class="form__field cursor-not-allowed " placeholder="Product Name" required="">
       <label   class="form__label">Product Name</label>
   </div>
     <div class="form__group field mx-auto">
-      <input  formControlName="name" type="text" class="form__field  " placeholder="Your Name" required="">
+      <input readonly formControlName="name" type="text" class="form__field  cursor-not-allowed " placeholder="Your Name" required="">
       <label   class="form__label">Name</label>
   </div>
     <div class="form__group field mx-auto">
-      <input  formControlName="email" type="email" class="form__field  " placeholder="email" required="">
+      <input readonly formControlName="email" type="email" class="form__field  cursor-not-allowed " placeholder="email" required="">
       <label   class="form__label">Email</label>
   </div>
     <div class="form__group field mx-auto">
-      <input  formControlName="resalePrice" type="text" class="form__field  " placeholder="Product Price" required="">
+      <input readonly  formControlName="resalePrice" type="text" class="form__field  cursor-not-allowed " placeholder="Product Price" required="">
       <label   class="form__label">Product Price</label>
   </div>
     <div class="form__group field mx-auto">
-      <input  formControlName="phone" type="text" class="form__field  " placeholder="Your Phone Number">
+      <input  formControlName="phone" type="text" class="form__field" placeholder="Your Phone Number">
       <label  class="form__label">Phone Number</label>
   </div>
-    <div class="form__group field mx-auto">
-      <input  formControlName="meetingLocation" type="text" class="form__field  " placeholder="Product Name" required="">
+    <div class="form__group field mx-auto mt-2" formGroupName = 'meetingLocation'>
+      <div class="form__group field mx-auto">
+        <!-- <label class="form__label">Select Division</label> -->
+        <select  formControlName="selectedDivision" class="form__field" (change)="onDivisionChange()">
+          <option value="">Select Division</option>
+          <option *ngFor="let division of divisions" [value]="division._id">{{ division.division }}</option>
+        </select>
+      </div>
+      
+      <div class="form__group field mx-auto" *ngIf="bookingForm.get('meetingLocation.selectedDivision')?.value">
+        <label class="form__label">Select District</label>
+        <select  formControlName="selectedDistrict" class="form__field">
+          <option value="">Select District</option>
+          <option *ngFor="let district of divWisedistricts" [value]="district._id">{{ district.district }}</option>
+        </select>
+      </div>
       <label   class="form__label">Meeting Location</label>
   </div>
      
+  
     <br />
     <!-- <button class="btn btn-accent " type="submit" value="Submit" >Save</button> -->
-    <button class="bookmarkBtn">
+    <button class="bookmarkBtn mx-auto">
       <span class="IconContainer"> 
         <svg viewBox="0 0 384 512" height="0.9em" class="icon"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path></svg>
       </span>

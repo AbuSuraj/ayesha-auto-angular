@@ -6,6 +6,7 @@ import { Product } from 'src/app/shared/interfaces/products';
 import { ProductsService } from 'src/app/shared/services/service-proxies/products/products.service';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
 import { User } from 'src/app/shared/interfaces/user';
+import { LocationsService } from 'src/app/shared/services/locations/locations.service';
 
 @Component({
   selector: 'app-booking',
@@ -17,7 +18,10 @@ export class BookingComponent implements OnInit {
   bookingForm!: FormGroup;
   userInfoLocalStorage:any;
   user!:User ;
-  constructor(private route: ActivatedRoute, private productsService: ProductsService, private formBuilder: FormBuilder, private userService: UsersService) {
+  allDistricts: any
+  divWisedistricts: any
+  divisions:any;
+  constructor(private route: ActivatedRoute, private productsService: ProductsService, private formBuilder: FormBuilder, private userService: UsersService, private locationsService: LocationsService) {
     // get selected product 
     this.productsService.currentProduct.subscribe(product => {
       this.product = product
@@ -32,17 +36,13 @@ export class BookingComponent implements OnInit {
     //   .pipe(map(() => window.history.state)).subscribe(res=>{
     //         console.log(res)                        
     //    })
+    
     this.getUserInfoFromLoclStorage();
-   
-
-    // get loggedInUser 
-    // this.userService.getLoggedInUserInfo(this.userInfoLocalStorage).subscribe((user:User) =>{
-    // this.user = user;
-    // console.log(this.user);      
-    // })
-
     this.initialiseBookingForm();
     this.getBookingFormsPatchValue()
+    this.getAllDistricts()
+    // this.getDivisionWiseDistricts('sylhet');
+    this.getDivision();
   }
 
   private getUserInfoFromLoclStorage(){
@@ -54,12 +54,15 @@ export class BookingComponent implements OnInit {
     console.log(this.user?.name , this.user?.email,this.product?.productName,);
     
     this.bookingForm = this.formBuilder.group({
-      productName: new FormControl( { value: this.product?.productName, disabled: true }),
-      name: new FormControl({value: this.user?.name, disabled: true}), 
-      email: new FormControl ({ value: this.user?.email, disabled: true }),
-      resalePrice: new FormControl({ value: this.product?.resalePrice, disabled: true }),
+      productName: new FormControl( { value: this.product?.productName, disabled: false  }),
+      name: new FormControl({value: this.user?.name, disabled: false }), 
+      email: new FormControl ({ value: this.user?.email, disabled: false  }),
+      resalePrice: new FormControl({ value: this.product?.resalePrice, disabled: false }),
       phone: new FormControl( '', [Validators.required]),
-      meetingLocation: new FormControl('', [Validators.required])
+      meetingLocation: this.formBuilder.group({
+        selectedDivision: new FormControl(''),
+        selectedDistrict: new FormControl(''),
+      })
     })
   }
 
@@ -77,11 +80,44 @@ getBookingFormsPatchValue(){
   })
 }
 
-  handleBooking(booking:any) {
-    if (this.bookingForm.valid) {
-      // Handle form submission here
-      // You can access form values using this.bookingForm.value
-      console.log(booking);
-    }
+getAllDistricts(){
+  this.locationsService.getAllDistricts().subscribe(data=>{
+    this.allDistricts = data.data;
+    console.log(this.allDistricts)
+  })
+}
+
+getDivisionWiseDistricts(division:string){
+  this.locationsService.getDivisionwiseDistricts(division).subscribe(data=>{
+    this.divWisedistricts = data.data;
+    console.log(this.divWisedistricts)
+  })
+}
+getDivision(){
+  this.locationsService.getDivissions().subscribe(data=>{
+    this.divisions = data.data;
+    console.log(this.divisions)
+  })
+}
+
+onDivisionChange() {
+  const selectedDivision = this.bookingForm.get('meetingLocation.selectedDivision')?.value;
+  if (selectedDivision) {
+    this.getDivisionWiseDistricts(selectedDivision);
+  } else {
+    this.bookingForm.get('selectedDistrict')?.setValue(''); // Clear selectedDistrict when no division is selected
   }
+}
+
+handleBooking(booking: any) {
+  console.log(booking);
+  
+  if (this.bookingForm.valid) {
+    const selectedDivision = this.bookingForm.get('selectedDivision')?.value;
+    const selectedDistrict = this.bookingForm.get('selectedDistrict')?.value;
+    // You can now use `selectedDivision` and `selectedDistrict` in your submission
+    console.log(booking, selectedDivision, selectedDistrict);
+  }
+  else {console.log('abu')}
+}
 }
