@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Booking } from 'src/app/shared/interfaces/booking.interface';
 import { Categories } from 'src/app/shared/interfaces/categories.interface';
 import { Product } from 'src/app/shared/interfaces/products.interface';
 // import { Categories } from '../../interfaces/categories';
@@ -37,6 +38,13 @@ export class ProductsService {
   }
 
   // book a product 
+  bookProduct(booking:Booking):Observable<Booking>{
+ const headers = new HttpHeaders({
+  'Content-Type': 'application/json',
+  authorization:  `bearer ${localStorage.getItem('accessToken')}`
+ })
+ return this.http.post<Booking>(`${this.BASE_URL}/bookings`,booking, { headers });
+  }
 
     // report product 
     reportProduct(product: Product): Observable<Product> {

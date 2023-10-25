@@ -27,7 +27,7 @@ export class BookingComponent implements OnInit {
     // get selected product 
     this.productsService.currentProduct.subscribe(product => {
       this.product = product
-    // console.log(product)
+    console.log(product.image)
     });
   }
 
@@ -114,10 +114,11 @@ onDivisionChange() {
 handleBooking(booking: any) {
   
   if (this.bookingForm.valid) {
-    this.booking = {...booking, productId:this.product._id} ;
-    console.log(this.product._id);
-    
-    console.log(booking);
+    this.booking = {...booking, productId:this.product._id, image:this.product.image} ;
+    console.log(this.booking)
+    this.productsService.bookProduct(this.booking).subscribe(data => {
+
+    })
      
   }
   else {console.log('abu')}

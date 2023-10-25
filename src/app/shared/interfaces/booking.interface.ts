@@ -4,6 +4,7 @@ export interface Booking {
     email: string;
     resalePrice: number;
     phone: string;
+    image: string;
     meetingLocation: {
       selectedDivision: string;
       selectedDistrict: string;
