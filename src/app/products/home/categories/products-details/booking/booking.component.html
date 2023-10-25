@@ -1,40 +1,38 @@
-<form [formGroup]="bookingForm" (ngSubmit)="handleBooking(bookingForm.value)">
-  <div class="form-control w-full">
-    <label class="label">
-      <span class="label-text">Product Name</span>
-    </label>
-    <input  formControlName="productName" type="text" placeholder="Your product name" class="input w-full input-bordered" />
+<div class="w-80 mx-auto my-5 bg-slate-100 shadow-2xl p-4 rounded-3xl">
+  <h1 class="text-xl text-center font-bold">Booked Your Car</h1>
+  <form  [formGroup]="bookingForm" (ngSubmit)="handleBooking(bookingForm.value)">
+    <div class="form__group field mx-auto">
+      <input  formControlName="productName" type="text" class="form__field  " placeholder="Product Name" required="">
+      <label   class="form__label">Product Name</label>
   </div>
-  <div class="form-control w-full">
-    <label class="label">
-      <span class="label-text">Name</span>
-    </label>
-    <input formControlName="name" type="text" placeholder="Your Name" class="input w-full input-bordered" />
+    <div class="form__group field mx-auto">
+      <input  formControlName="name" type="text" class="form__field  " placeholder="Your Name" required="">
+      <label   class="form__label">Name</label>
   </div>
-  <div class="form-control w-full">
-    <label class="label">
-      <span class="label-text">Email</span>
-    </label>
-    <input formControlName="email" type="email" placeholder="Email Address" class="input w-full input-bordered" />
+    <div class="form__group field mx-auto">
+      <input  formControlName="email" type="email" class="form__field  " placeholder="email" required="">
+      <label   class="form__label">Email</label>
   </div>
-  <div class="form-control flex w-full">
-    <label class="label">
-      <span class="label-text">Price</span>
-    </label>
-    <input formControlName="resalePrice" type="text" placeholder="Price" class="input w-full input-bordered" />
+    <div class="form__group field mx-auto">
+      <input  formControlName="resalePrice" type="text" class="form__field  " placeholder="Product Price" required="">
+      <label   class="form__label">Product Price</label>
   </div>
-  <div class="form-control flex w-full">
-    <label class="label">
-      <span class="label-text">Phone Number</span>
-    </label>
-    <input formControlName="phone" type="text" placeholder="Phone Number" class="input w-full input-bordered" />
+    <div class="form__group field mx-auto">
+      <input  formControlName="phone" type="text" class="form__field  " placeholder="Your Phone Number">
+      <label  class="form__label">Phone Number</label>
   </div>
-  <div class="form-control flex w-full">
-    <label class="label">
-      <span class="label-text">Meeting Location</span>
-    </label>
-    <input formControlName="meetingLocation" type="text" placeholder="Meeting Location" class="input w-full input-bordered" />
+    <div class="form__group field mx-auto">
+      <input  formControlName="meetingLocation" type="text" class="form__field  " placeholder="Product Name" required="">
+      <label   class="form__label">Meeting Location</label>
   </div>
-  <br />
-  <button class="btn btn-accent w-full" type="submit" value="Submit" >Save</button>
-</form>
+     
+    <br />
+    <!-- <button class="btn btn-accent " type="submit" value="Submit" >Save</button> -->
+    <button class="bookmarkBtn">
+      <span class="IconContainer"> 
+        <svg viewBox="0 0 384 512" height="0.9em" class="icon"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path></svg>
+      </span>
+      <p class="text">Save</p>
+    </button>
+  </form>
+</div>
