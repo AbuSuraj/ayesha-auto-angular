@@ -1,9 +1,9 @@
-<form [formGroup]="bookingForm" (ngSubmit)="handleBooking()">
+<form [formGroup]="bookingForm" (ngSubmit)="handleBooking(bookingForm.value)">
   <div class="form-control w-full">
     <label class="label">
       <span class="label-text">Product Name</span>
     </label>
-    <input formControlName="productName" type="text" placeholder="Your product name" class="input w-full input-bordered" />
+    <input  formControlName="productName" type="text" placeholder="Your product name" class="input w-full input-bordered" />
   </div>
   <div class="form-control w-full">
     <label class="label">

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { Product } from 'src/app/shared/interfaces/products';
@@ -54,12 +54,12 @@ export class BookingComponent implements OnInit {
     console.log(this.user?.name , this.user?.email,this.product?.productName,);
     
     this.bookingForm = this.formBuilder.group({
-      productName: [{ value: this.product?.productName, disabled: true }],
-      name: [{ value: this.user?.name, disabled: true }],
-      email: [{ value: this.user?.email, disabled: true }],
-      resalePrice: [{ value: this.product?.resalePrice, disabled: true }],
-      phone: ['', [Validators.required]],
-      meetingLocation: ['', [Validators.required]],
+      productName: new FormControl( { value: this.product?.productName, disabled: true }),
+      name: new FormControl({value: this.user?.name, disabled: true}), 
+      email: new FormControl ({ value: this.user?.email, disabled: true }),
+      resalePrice: new FormControl({ value: this.product?.resalePrice, disabled: true }),
+      phone: new FormControl( '', [Validators.required]),
+      meetingLocation: new FormControl('', [Validators.required])
     })
   }
 
@@ -77,11 +77,11 @@ getBookingFormsPatchValue(){
   })
 }
 
-  handleBooking() {
+  handleBooking(booking:any) {
     if (this.bookingForm.valid) {
       // Handle form submission here
       // You can access form values using this.bookingForm.value
-      console.log(this.bookingForm.value);
+      console.log(booking);
     }
   }
 }
