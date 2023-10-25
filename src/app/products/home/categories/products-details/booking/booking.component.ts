@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
-import { Product } from 'src/app/shared/interfaces/products';
+import { Product } from 'src/app/shared/interfaces/products.interface';
 import { ProductsService } from 'src/app/shared/services/service-proxies/products/products.service';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
-import { User } from 'src/app/shared/interfaces/user';
+import { User } from 'src/app/shared/interfaces/user.interface';
 import { LocationsService } from 'src/app/shared/services/locations/locations.service';
+import { Booking } from 'src/app/shared/interfaces/booking.interface';
 
 @Component({
   selector: 'app-booking',
@@ -21,11 +22,12 @@ export class BookingComponent implements OnInit {
   allDistricts: any
   divWisedistricts: any
   divisions:any;
+  booking!:Booking;
   constructor(private route: ActivatedRoute, private productsService: ProductsService, private formBuilder: FormBuilder, private userService: UsersService, private locationsService: LocationsService) {
     // get selected product 
     this.productsService.currentProduct.subscribe(product => {
       this.product = product
-  
+    // console.log(product)
     });
   }
 
@@ -110,13 +112,13 @@ onDivisionChange() {
 }
 
 handleBooking(booking: any) {
-  console.log(booking);
   
   if (this.bookingForm.valid) {
-    const selectedDivision = this.bookingForm.get('selectedDivision')?.value;
-    const selectedDistrict = this.bookingForm.get('selectedDistrict')?.value;
-    // You can now use `selectedDivision` and `selectedDistrict` in your submission
-    console.log(booking, selectedDivision, selectedDistrict);
+    this.booking = {...booking, productId:this.product._id} ;
+    console.log(this.product._id);
+    
+    console.log(booking);
+     
   }
   else {console.log('abu')}
 }

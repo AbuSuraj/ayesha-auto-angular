@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Categories } from 'src/app/shared/interfaces/categories';
-import { Product } from 'src/app/shared/interfaces/products';
+import { Categories } from 'src/app/shared/interfaces/categories.interface';
+import { Product } from 'src/app/shared/interfaces/products.interface';
 // import { Categories } from '../../interfaces/categories';
 
 @Injectable({
@@ -35,6 +35,8 @@ export class ProductsService {
 
     return this.http.get<Product>(`${this.BASE_URL}/category/${id}`, { headers });
   }
+
+  // book a product 
 
     // report product 
     reportProduct(product: Product): Observable<Product> {

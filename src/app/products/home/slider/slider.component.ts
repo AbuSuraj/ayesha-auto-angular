@@ -8,7 +8,7 @@ import {
   switchMap,
   timer,
 } from 'rxjs';
-import { SlideInterface } from 'src/app/shared/interfaces/sliders';
+import { SlideInterface } from 'src/app/shared/interfaces/sliders.interface';
  
 @Component({
   selector: 'app-slider',

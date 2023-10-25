@@ -7,7 +7,7 @@ import firebase from 'firebase/compat/app';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import {User} from '../../interfaces/user'
+import {User} from '../../interfaces/user.interface'
 import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'

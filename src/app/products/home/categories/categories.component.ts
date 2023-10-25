@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 // import { ProductsService } from './../../../shared/services/service-proxies/products.service';
-import { Categories } from 'src/app/shared/interfaces/categories';
+import { Categories } from 'src/app/shared/interfaces/categories.interface';
 import { ProductsService } from 'src/app/shared/services/service-proxies/products/products.service';
 
 @Component({

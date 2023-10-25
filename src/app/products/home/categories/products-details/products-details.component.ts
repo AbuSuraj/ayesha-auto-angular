@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
-import { Product } from 'src/app/shared/interfaces/products';
+import { Product } from 'src/app/shared/interfaces/products.interface';
 import { ProductsService } from 'src/app/shared/services/service-proxies/products/products.service';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
 

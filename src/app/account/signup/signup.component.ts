@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faEnvelope, faEye, faEyeSlash,  } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
-import { User } from 'src/app/shared/interfaces/user';
+import { User } from 'src/app/shared/interfaces/user.interface';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { AuthTokenService } from 'src/app/shared/services/service-proxies/authorization/auth-token.service';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
