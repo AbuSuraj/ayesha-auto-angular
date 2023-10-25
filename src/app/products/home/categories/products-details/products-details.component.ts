@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
+import { Product } from 'src/app/shared/interfaces/products';
 import { ProductsService } from 'src/app/shared/services/service-proxies/products/products.service';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
 
@@ -18,7 +19,7 @@ export class ProductsDetailsComponent implements OnInit {
   date = new Date();
   year = this.date.getFullYear()
   faCheck = faCheck;
-  constructor(private activateRoute: ActivatedRoute, private productsService: ProductsService, private userService: UsersService, private toastr: ToastrService) {}
+  constructor(private activateRoute: ActivatedRoute, private productsService: ProductsService, private userService: UsersService, private toastr: ToastrService, private router: Router) {}
 
   ngOnInit(): void {
     const id = this.activateRoute.snapshot.paramMap.get('id');
@@ -53,5 +54,10 @@ export class ProductsDetailsComponent implements OnInit {
       this.sellers = data.data;
       console.log(this.sellers);
     })
+  }
+
+  addBooking(product: Product){
+    this.productsService.changeProduct(product);
+    this.router.navigate(['/category',this.id, 'booking'])
   }
 }

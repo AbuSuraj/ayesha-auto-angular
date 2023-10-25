@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Categories } from 'src/app/shared/interfaces/categories';
 import { Product } from 'src/app/shared/interfaces/products';
 // import { Categories } from '../../interfaces/categories';
@@ -12,6 +12,14 @@ export class ProductsService {
   private BASE_URL = 'https://ayeshaauto.vercel.app';
 
   constructor(private http: HttpClient) {}
+
+  // get a product for booking 
+  private productSource = new BehaviorSubject<any>(null);
+  currentProduct = this.productSource.asObservable();
+
+  changeProduct(product: any) {
+    this.productSource.next(product);
+  }
 
   // get cateogries
   getCategories(): Observable<Categories []> {

@@ -8,6 +8,7 @@ import { User } from 'src/app/shared/interfaces/user';
 })
 export class UsersService {
   private BASE_URL = 'https://ayeshaauto.vercel.app';
+  private BASE_URL_LOCAL = 'http://localhost:5000'
 
   constructor(private http: HttpClient) {}
 
@@ -19,6 +20,11 @@ export class UsersService {
     const body = JSON.stringify(user);
 
     return this.http.post<User>(`${this.BASE_URL}/users`, body, { headers });
+  }
+  // get a loggedIn user info from db  
+  getLoggedInUserInfo(user: User):Observable<any>{
+    console.log(user);
+    return this.http.get<User>(`${this.BASE_URL}/user/${user?.email}`)
   }
 
   getSellers():Observable<any>{

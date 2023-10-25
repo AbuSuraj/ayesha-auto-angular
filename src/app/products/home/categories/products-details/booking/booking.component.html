@@ -1,1 +1,40 @@
-<p>booking works!</p>
+<form [formGroup]="bookingForm" (ngSubmit)="handleBooking()">
+  <div class="form-control w-full">
+    <label class="label">
+      <span class="label-text">Product Name</span>
+    </label>
+    <input formControlName="productName" type="text" placeholder="Your product name" class="input w-full input-bordered" />
+  </div>
+  <div class="form-control w-full">
+    <label class="label">
+      <span class="label-text">Name</span>
+    </label>
+    <input formControlName="name" type="text" placeholder="Your Name" class="input w-full input-bordered" />
+  </div>
+  <div class="form-control w-full">
+    <label class="label">
+      <span class="label-text">Email</span>
+    </label>
+    <input formControlName="email" type="email" placeholder="Email Address" class="input w-full input-bordered" />
+  </div>
+  <div class="form-control flex w-full">
+    <label class="label">
+      <span class="label-text">Price</span>
+    </label>
+    <input formControlName="resalePrice" type="text" placeholder="Price" class="input w-full input-bordered" />
+  </div>
+  <div class="form-control flex w-full">
+    <label class="label">
+      <span class="label-text">Phone Number</span>
+    </label>
+    <input formControlName="phone" type="text" placeholder="Phone Number" class="input w-full input-bordered" />
+  </div>
+  <div class="form-control flex w-full">
+    <label class="label">
+      <span class="label-text">Meeting Location</span>
+    </label>
+    <input formControlName="meetingLocation" type="text" placeholder="Meeting Location" class="input w-full input-bordered" />
+  </div>
+  <br />
+  <button class="btn btn-accent w-full" type="submit" value="Submit" >Save</button>
+</form>

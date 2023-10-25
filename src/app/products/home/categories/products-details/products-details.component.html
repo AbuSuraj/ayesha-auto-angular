@@ -58,8 +58,12 @@
               </span>
             </p>
           </div>
-          <a  [routerLink]="['/category',id, 'booking']" >Book</a>
-          <!-- <div class="card-actions justify-end">
+          <!-- if data are small then we can pass it with state  -->
+            <!-- <button  [routerLink]="['/category',id, 'booking']" [state]="{ product: product }" >Book</button> -->
+  <button (click)="addBooking(product)" >Book</button>
+         
+  
+  <!-- <div class="card-actions justify-end">
                     <label (click)="book = product" for="booking-modal" class="btn">Book Now</label>
                     <button (click)="handleReport(product)" class="btn btn-warning">Report this item</button>
                   </div>

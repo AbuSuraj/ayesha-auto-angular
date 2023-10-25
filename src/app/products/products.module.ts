@@ -9,6 +9,7 @@ import { CategoriesComponent } from './home/categories/categories.component';
 import { ProductsDetailsComponent } from './home/categories/products-details/products-details.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BookingComponent } from './home/categories/products-details/booking/booking.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +24,9 @@ import { BookingComponent } from './home/categories/products-details/booking/boo
     imports: [
         CommonModule,
         ProductsRoutingModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        FormsModule,
+        ReactiveFormsModule
     ]
 })
 export class ProductsModule { }
