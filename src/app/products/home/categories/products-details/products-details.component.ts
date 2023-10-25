@@ -21,7 +21,7 @@ export class ProductsDetailsComponent implements OnInit {
   date = new Date();
   year = this.date.getFullYear()
   faCheck = faCheck;
-  tooltipText: any;
+  tooltipText: string='Price ';
 
   
   constructor(private activateRoute: ActivatedRoute, private productsService: ProductsService, private userService: UsersService, private toastr: ToastrService, private router: Router) {}

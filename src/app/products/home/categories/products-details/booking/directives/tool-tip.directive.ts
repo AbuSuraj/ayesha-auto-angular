@@ -4,7 +4,7 @@ import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/
   selector: '[appTooltip]',
 })
 export class TooltipDirective {
-  @Input('appTooltip') tooltipText: any;
+  @Input('appTooltip') tooltipText!: string;
 
   private tooltip: HTMLElement | null = null;
 

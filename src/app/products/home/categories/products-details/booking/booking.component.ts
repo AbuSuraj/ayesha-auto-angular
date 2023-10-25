@@ -55,7 +55,7 @@ export class BookingComponent implements OnInit {
   }
 
   private initialiseBookingForm(): void {
-    console.log(this.user?.name , this.user?.email,this.product?.productName,);
+    // console.log(this.user?.name , this.user?.email,this.product?.productName,);
     
     this.bookingForm = this.formBuilder.group({
       productName: new FormControl( { value: this.product?.productName, disabled: false  }),
@@ -74,7 +74,7 @@ export class BookingComponent implements OnInit {
 getBookingFormsPatchValue(){
   this.userService.getLoggedInUserInfo(this.userInfoLocalStorage).subscribe((user:User) =>{
     this.user = user;
-    console.log(this.user);      
+    // console.log(this.user);      
     this.bookingForm.patchValue({
     productName: this.product?.productName,
     name:   this.user?.name,
@@ -87,20 +87,20 @@ getBookingFormsPatchValue(){
 getAllDistricts(){
   this.locationsService.getAllDistricts().subscribe(data=>{
     this.allDistricts = data.data;
-    console.log(this.allDistricts)
+    // console.log(this.allDistricts)
   })
 }
 
 getDivisionWiseDistricts(division:string){
   this.locationsService.getDivisionwiseDistricts(division).subscribe(data=>{
     this.divWisedistricts = data.data;
-    console.log(this.divWisedistricts)
+    // console.log(this.divWisedistricts)
   })
 }
 getDivision(){
   this.locationsService.getDivissions().subscribe(data=>{
     this.divisions = data.data;
-    console.log(this.divisions)
+    // console.log(this.divisions)
   })
 }
 
@@ -117,7 +117,7 @@ handleBooking(booking: any) {
   
   if (this.bookingForm.valid) {
     this.booking = {...booking, productId:this.product._id, image:this.product.image} ;
-    console.log(this.booking)
+    // console.log(this.booking)
     this.productsService.bookProduct(this.booking).subscribe(data => {
       this.router.navigate(['/dashboard']);
       this.toaster.success('Product Booked Successfully!', 'Success');
