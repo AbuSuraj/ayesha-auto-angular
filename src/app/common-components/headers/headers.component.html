@@ -40,7 +40,7 @@
             </li>
             <li class="mx-2">
               <!-- <img class="w-7 h-7 rounded-full" [src]="user?.photoURL" alt="user"> -->
-              <a class="link">{{ user?.displayName }}</a>
+              <a class="link">{{ loggedInUser?.name}}</a>
             </li>
             <li class="mx-2">
               <button (click)="handleLogOut()">Sign out</button>
@@ -87,7 +87,7 @@
         </li>
         <li class="mx-2">
           <!-- <img class="w-7 h-7 " [src]="user?.photoURL" alt="user"> -->
-          <a class="link">{{ user?.displayName }}</a>
+          <a class="link">{{ loggedInUser?.name }}</a>
         </li>
         <li class="mx-2">
           <button (click)="handleLogOut()">Sign out</button>
