@@ -6,7 +6,7 @@ import { Product } from 'src/app/shared/interfaces/products.interface';
 import { ProductsService } from 'src/app/shared/services/service-proxies/products/products.service';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
 import { User } from 'src/app/shared/interfaces/user.interface';
-import { LocationsService } from 'src/app/shared/services/locations/locations.service';
+import { LocationsService } from 'src/app/shared/services/service-proxies/locations/locations.service';
 import { Booking } from 'src/app/shared/interfaces/booking.interface';
 import { ToastrService } from 'ngx-toastr';
  

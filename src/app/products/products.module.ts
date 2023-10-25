@@ -10,6 +10,7 @@ import { ProductsDetailsComponent } from './home/categories/products-details/pro
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BookingComponent } from './home/categories/products-details/booking/booking.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TooltipDirective } from './home/categories/products-details/booking/directives/tool-tip.directive';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         SliderComponent,
         CategoriesComponent,
         ProductsDetailsComponent,
-        BookingComponent
+        BookingComponent,
+        TooltipDirective
     ],
     imports: [
         CommonModule,

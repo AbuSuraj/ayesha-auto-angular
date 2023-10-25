@@ -6,11 +6,13 @@ import { catchError } from 'rxjs';
 import { Product } from 'src/app/shared/interfaces/products.interface';
 import { ProductsService } from 'src/app/shared/services/service-proxies/products/products.service';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
+import { TooltipDirective } from 'src/app/shared/tool-tip/tool-tip.directives';
 
 @Component({
   selector: 'app-products-details',
   templateUrl: './products-details.component.html',
-  styleUrls: ['./products-details.component.less']
+  styleUrls: ['./products-details.component.less'],
+  // directives: [TooltipDirective],
 })
 export class ProductsDetailsComponent implements OnInit {
   id: any;
@@ -19,15 +21,23 @@ export class ProductsDetailsComponent implements OnInit {
   date = new Date();
   year = this.date.getFullYear()
   faCheck = faCheck;
-  constructor(private activateRoute: ActivatedRoute, private productsService: ProductsService, private userService: UsersService, private toastr: ToastrService, private router: Router) {}
+  tooltipText: any;
 
+  
+  constructor(private activateRoute: ActivatedRoute, private productsService: ProductsService, private userService: UsersService, private toastr: ToastrService, private router: Router) {}
+  
   ngOnInit(): void {
     const id = this.activateRoute.snapshot.paramMap.get('id');
     console.log(id);
-  
+    
     this.id = id; 
     this.getProducts();
     this.getSellers();
+  }
+  
+  changeTooltip(newText: any) {
+    // console.log(newText);
+    this.tooltipText = "Price $" + newText;
   }
 
   getProducts(){
@@ -59,5 +69,10 @@ export class ProductsDetailsComponent implements OnInit {
   addBooking(product: Product){
     this.productsService.changeProduct(product);
     this.router.navigate(['/category',this.id, 'booking'])
+  }
+
+  handleReport(product:Product){
+    console.log(product);
+    
   }
 }
