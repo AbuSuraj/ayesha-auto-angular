@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { Product } from 'src/app/shared/interfaces/products.interface';
 import { ProductsService } from 'src/app/shared/services/service-proxies/products/products.service';
@@ -8,6 +8,8 @@ import { UsersService } from 'src/app/shared/services/service-proxies/users/user
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { LocationsService } from 'src/app/shared/services/locations/locations.service';
 import { Booking } from 'src/app/shared/interfaces/booking.interface';
+import { ToastrService } from 'ngx-toastr';
+ 
 
 @Component({
   selector: 'app-booking',
@@ -23,7 +25,7 @@ export class BookingComponent implements OnInit {
   divWisedistricts: any
   divisions:any;
   booking!:Booking;
-  constructor(private route: ActivatedRoute, private productsService: ProductsService, private formBuilder: FormBuilder, private userService: UsersService, private locationsService: LocationsService) {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private productsService: ProductsService, private formBuilder: FormBuilder, private userService: UsersService, private locationsService: LocationsService, private toaster: ToastrService) {
     // get selected product 
     this.productsService.currentProduct.subscribe(product => {
       this.product = product
@@ -117,10 +119,15 @@ handleBooking(booking: any) {
     this.booking = {...booking, productId:this.product._id, image:this.product.image} ;
     console.log(this.booking)
     this.productsService.bookProduct(this.booking).subscribe(data => {
-
-    })
+      this.router.navigate(['/dashboard']);
+      this.toaster.success('Product Booked Successfully!', 'Success');
+    },
+    (err) => {
+      this.toaster.error('Failed to Book product!', 'Error');
+    }
+    )
      
   }
-  else {console.log('abu')}
+  else {this.toaster.error('There is an error, Please fill this form!', 'Error');}
 }
 }
