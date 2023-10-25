@@ -7,7 +7,7 @@ import firebase from 'firebase/compat/app';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import {User} from '../../interfaces/user'
+import {User} from '../../interfaces/user.interface'
 import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -82,7 +82,7 @@ export class AuthService {
     .then((result)=>{
       // this.snedVerificationMail()
       // this.SetUserData(result.user)
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['']);
     })
     .catch((error)=>{
       // window.alert(error.message)
@@ -97,7 +97,7 @@ export class AuthService {
       // this.SetUserData(result.user);
       this.auth.authState.subscribe((user)=>{
         if(user){
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['']);
         }
       })
     })

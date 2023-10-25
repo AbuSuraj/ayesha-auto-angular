@@ -6,6 +6,11 @@ import { ProductsComponent } from './products.component';
 import { HomeComponent } from './home/home.component';
 import { SliderComponent } from './home/slider/slider.component';
 import { CategoriesComponent } from './home/categories/categories.component';
+import { ProductsDetailsComponent } from './home/categories/products-details/products-details.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BookingComponent } from './home/categories/products-details/booking/booking.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TooltipDirective } from './home/categories/products-details/booking/directives/tool-tip.directive';
 
 
 @NgModule({
@@ -13,11 +18,17 @@ import { CategoriesComponent } from './home/categories/categories.component';
         ProductsComponent,
         HomeComponent,
         SliderComponent,
-        CategoriesComponent
+        CategoriesComponent,
+        ProductsDetailsComponent,
+        BookingComponent,
+        TooltipDirective
     ],
     imports: [
         CommonModule,
         ProductsRoutingModule,
+        FontAwesomeModule,
+        FormsModule,
+        ReactiveFormsModule
     ]
 })
 export class ProductsModule { }
