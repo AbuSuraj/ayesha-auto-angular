@@ -18,8 +18,17 @@
       <label   class="form__label">Product Price</label>
   </div>
     <div class="form__group field mx-auto">
-      <input  formControlName="phone" type="text" class="form__field" placeholder="Your Phone Number">
+     <div>
+       <input  formControlName="phone" type="text" class="form__field" placeholder="Your Phone Number">
       <label  class="form__label">Phone Number</label>
+    </div>
+    <div *ngIf="bookingForm.controls['phone'].invalid && (bookingForm.controls['phone'].dirty || bookingForm.controls['phone'].touched)"
+    >
+    <div *ngIf="bookingForm.controls['phone']?.errors?.['required']" class="text-xs text-red-700">
+      Phone is Required
+    </div>
+    <div *ngIf="bookingForm.controls['phone']?.errors?.['pattern']" class="text-xs text-red-700">Please Enter a Valid Bangladeshi Number</div>
+  </div>
   </div>
     <div class="form__group field mx-auto mt-2" formGroupName = 'meetingLocation'>
       <div class="form__group field mx-auto">

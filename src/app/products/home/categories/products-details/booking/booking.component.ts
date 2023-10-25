@@ -58,7 +58,7 @@ export class BookingComponent implements OnInit {
       name: new FormControl({value: this.user?.name, disabled: false }), 
       email: new FormControl ({ value: this.user?.email, disabled: false  }),
       resalePrice: new FormControl({ value: this.product?.resalePrice, disabled: false }),
-      phone: new FormControl( '', [Validators.required]),
+      phone: new FormControl( '', [Validators.required, Validators.pattern('(?:(?:\\+|00)88|01)?\\d{11}')]),
       meetingLocation: this.formBuilder.group({
         selectedDivision: new FormControl(''),
         selectedDistrict: new FormControl(''),
