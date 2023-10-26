@@ -11,6 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BookingComponent } from './home/categories/products-details/booking/booking.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TooltipDirective } from './home/categories/products-details/booking/directives/tool-tip.directive';
+import { AdvertisementComponent } from './home/advertisement/advertisement.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TooltipDirective } from './home/categories/products-details/booking/dir
         CategoriesComponent,
         ProductsDetailsComponent,
         BookingComponent,
-        TooltipDirective
+        TooltipDirective,
+        AdvertisementComponent
     ],
     imports: [
         CommonModule,
