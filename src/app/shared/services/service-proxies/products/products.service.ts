@@ -12,7 +12,7 @@ import { Product } from 'src/app/shared/interfaces/products.interface';
 export class ProductsService {
   private BASE_URL = 'https://ayeshaauto.vercel.app';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // get a product for booking 
   private productSource = new BehaviorSubject<any>(null);
@@ -23,8 +23,8 @@ export class ProductsService {
   }
 
   // get cateogries
-  getCategories(): Observable<Categories []> {
-    return this.http.get<Categories []>(`${this.BASE_URL}/categories`);
+  getCategories(): Observable<Categories[]> {
+    return this.http.get<Categories[]>(`${this.BASE_URL}/categories`);
   }
 
   // get products
@@ -38,26 +38,32 @@ export class ProductsService {
   }
 
   // book a product 
-  bookProduct(booking:Booking):Observable<Booking>{
- const headers = new HttpHeaders({
-  'Content-Type': 'application/json',
-  authorization:  `bearer ${localStorage.getItem('accessToken')}`
- })
- return this.http.post<Booking>(`${this.BASE_URL}/bookings`,booking, { headers });
+  bookProduct(booking: Booking): Observable<Booking> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      authorization: `bearer ${localStorage.getItem('accessToken')}`
+    })
+    return this.http.post<Booking>(`${this.BASE_URL}/bookings`, booking, { headers });
   }
 
-    // report product 
-    reportProduct(product: Product): Observable<Product> {
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-      });
-  
-      return this.http.post<Product>(
-        `${this.BASE_URL}/report`,
-        product,
-        { headers }
-      );
-    }
+  // report product 
+  reportProduct(product: Product): Observable<Product> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+    });
+
+    return this.http.post<Product>(
+      `${this.BASE_URL}/report`,
+      product,
+      { headers }
+    );
+  }
+
+  // GET ALL ADVERTISE PRODUCT
+
+  getAdvertiseProduct(): Observable<any> {
+  return this.http.get<any>(`${this.BASE_URL}/advertisementItem`)
+  }
 
 }
