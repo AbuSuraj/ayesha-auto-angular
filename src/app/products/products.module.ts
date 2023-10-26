@@ -11,7 +11,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BookingComponent } from './home/categories/products-details/booking/booking.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TooltipDirective } from './home/categories/products-details/booking/directives/tool-tip.directive';
-import { AdvertisementComponent } from './home/advertisement/advertisement.component';
+import { AdvertisementComponent } from './home/advertisement/advertisement.component'; 
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -30,7 +31,9 @@ import { AdvertisementComponent } from './home/advertisement/advertisement.compo
         ProductsRoutingModule,
         FontAwesomeModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        // LoaderComponent
+        SharedModule
     ]
 })
 export class ProductsModule { }

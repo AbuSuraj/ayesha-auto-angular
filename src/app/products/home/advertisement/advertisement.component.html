@@ -1,4 +1,4 @@
-<div class="pb-5 w-[500px] md:w-[936px] lg:w-[1300px] mx-auto my-10 shadow-2xl rounded-xl bg-slate-100">
+<div *ngIf="!showLoader; else loader"  class="pb-5 w-[500px] md:w-[936px] lg:w-[1300px] mx-auto my-10 shadow-2xl rounded-xl bg-slate-100">
     <h2 class="font-bold text-3xl text-center pt-3">Products Advertisement</h2>
     <div class="grid gap-6   grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto my-10 px-3">
       <div *ngFor="let product of advertiseProduct" class="category" >
@@ -29,3 +29,7 @@
       </div>
     </div>
   </div>
+
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>

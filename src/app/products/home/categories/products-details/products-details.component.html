@@ -1,78 +1,80 @@
-<div *ngIf="products?.length !== 0; else noCarBlock" class="pb-5 mx-auto my-10">
-  <div class="grid gap-6 ml-20 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-10">
-    <div *ngFor="let product of products">
-      <div class="card w-96 bg-base-200 shadow-2xl mx-auto">
-        <figure>
-          <img class="w-full h-48" [src]="product.image" alt="car" />
-        </figure>
-        <div class="card-body">
-          <h2 class="card-title">
-            {{ product.productName }}
-            <div class="badge badge-secondary">{{ product.condition }}</div>
-          </h2>
-          <div class="h-56">
-            <p>
-              Original Price:
-              <span class="font-bold">${{ product.originalPrice }}</span>
-            </p>
-            <p>
-              Resale Price:
-              <span class="font-bold">${{ product.resalePrice }}</span>
-            </p>
-            <p>
-              Location: <span class="font-bold">{{ product.location }}</span>
-            </p>
-            <p>
-              Contact Number:
-              <span class="font-bold">{{ product.mobile }}</span>
-            </p>
-            <p>
-              <span class="font-bold">Years of used:</span>
-              {{ year - product.purchaseYear }} years
-            </p>
-            <p>
-              <span class="font-bold">Overview:</span>
-              {{ product.productDescription | slice : 0 : 100 }}...
-            </p>
-            <p>
-              <span class="font-bold">Posted Date:</span>
-              {{ product.createdDate | slice : 0 : 10 }}
-            </p>
-            <p class="flex items-center">
-              <span
-                ><span class="font-bold">Seller Name: </span>
-                {{ product.seller }}</span
-              >
-              <span class="text-green-600 ml-2 text-2xl">
-                <ng-container *ngFor="let seller of sellers">
-                  <fa-icon
-                    style="color: #0bd04d"
-                    *ngIf="seller.email === product.email && seller.verify"
-                    [icon]="faCheck"
-                  ></fa-icon>
-                </ng-container>
-              </span>
-            </p>
-          </div>
-          <!-- if data are small then we can pass it with state  -->
-          <!-- <button  [routerLink]="['/category',id, 'booking']" [state]="{ product: product }" >Book</button> -->
-
-          <div class="card-actions justify-between items-center mt-7"> 
-            <div class="booking-button" (mouseenter)="changeTooltip(product.resalePrice)" [appTooltip]="tooltipText">
-              <div (click)="addBooking(product)" class="button-wrapper">
-                <div class="text">Book Now</div>
-                  <span class="icon">
-                    <svg viewBox="0 0 16 16" class="bi bi-cart2" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"></path>
-              </svg>
-                  </span>
+<div *ngIf="!showLoader; else loader">
+  <div *ngIf="products?.length !== 0; else noCarBlock" class="pb-5 mx-auto my-10">
+    <div class="grid gap-6 ml-20 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-10">
+      <div *ngFor="let product of products">
+        <div class="card w-96 bg-base-200 shadow-2xl mx-auto">
+          <figure>
+            <img class="w-full h-48" [src]="product.image" alt="car" />
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title">
+              {{ product.productName }}
+              <div class="badge badge-secondary">{{ product.condition }}</div>
+            </h2>
+            <div class="h-56">
+              <p>
+                Original Price:
+                <span class="font-bold">${{ product.originalPrice }}</span>
+              </p>
+              <p>
+                Resale Price:
+                <span class="font-bold">${{ product.resalePrice }}</span>
+              </p>
+              <p>
+                Location: <span class="font-bold">{{ product.location }}</span>
+              </p>
+              <p>
+                Contact Number:
+                <span class="font-bold">{{ product.mobile }}</span>
+              </p>
+              <p>
+                <span class="font-bold">Years of used:</span>
+                {{ year - product.purchaseYear }} years
+              </p>
+              <p>
+                <span class="font-bold">Overview:</span>
+                {{ product.productDescription | slice : 0 : 100 }}...
+              </p>
+              <p>
+                <span class="font-bold">Posted Date:</span>
+                {{ product.createdDate | slice : 0 : 10 }}
+              </p>
+              <p class="flex items-center">
+                <span
+                  ><span class="font-bold">Seller Name: </span>
+                  {{ product.seller }}</span
+                >
+                <span class="text-green-600 ml-2 text-2xl">
+                  <ng-container *ngFor="let seller of sellers">
+                    <fa-icon
+                      style="color: #0bd04d"
+                      *ngIf="seller.email === product.email && seller.verify"
+                      [icon]="faCheck"
+                    ></fa-icon>
+                  </ng-container>
+                </span>
+              </p>
+            </div>
+            <!-- if data are small then we can pass it with state  -->
+            <!-- <button  [routerLink]="['/category',id, 'booking']" [state]="{ product: product }" >Book</button> -->
+  
+            <div class="card-actions justify-between items-center mt-7"> 
+              <div class="booking-button" (mouseenter)="changeTooltip(product.resalePrice)" [appTooltip]="tooltipText">
+                <div (click)="addBooking(product)" class="button-wrapper">
+                  <div class="text">Book Now</div>
+                    <span class="icon">
+                      <svg viewBox="0 0 16 16" class="bi bi-cart2" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"></path>
+                </svg>
+                    </span>
+                  </div>
                 </div>
-              </div>
-              
-              
-            <div class="report-container">
-              <div class="btn">
-                <a (click)="handleReport(product)">Report this item</a>
+                
+                
+              <div class="report-container">
+                <div class="btn">
+                  <a (click)="handleReport(product)">Report this item</a>
+                </div>
               </div>
             </div>
           </div>
@@ -80,8 +82,11 @@
       </div>
     </div>
   </div>
+  <ng-template #noCarBlock>
+    <h1 class="text-center font-bold">No car Available for this category</h1>
+  </ng-template>
 </div>
-<ng-template #noCarBlock>
-  <h1 class="text-center font-bold">No car Available for this category</h1>
+<ng-template #loader>
+  <app-loader></app-loader>
 </ng-template>
 <router-outlet></router-outlet>

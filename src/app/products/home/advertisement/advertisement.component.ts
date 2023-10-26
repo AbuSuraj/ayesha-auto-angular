@@ -13,13 +13,15 @@ export class AdvertisementComponent implements OnInit {
   advertiseProduct:any;
   isLoggedIn:boolean = false;
   tooltipText: string='Price ';
-
+  showLoader: boolean = false;
   constructor(private productsService: ProductsService, private authService: AuthService, private router: Router ){}
 
   ngOnInit(): void {
+      this.showLoader = true;
       this.productsService.getAdvertiseProduct().subscribe(data=>{
         this.advertiseProduct = data;
-        console.log(this.advertiseProduct);
+        this.showLoader = false;
+        // console.log(this.advertiseProduct);
       })
 
      this.isLoggedIn= this.authService.isLoggedIn;

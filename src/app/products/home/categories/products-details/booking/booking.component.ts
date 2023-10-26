@@ -25,6 +25,7 @@ export class BookingComponent implements OnInit {
   divWisedistricts: any
   divisions:any;
   booking!:Booking;
+  showLoader:Boolean = false;
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private productsService: ProductsService, private formBuilder: FormBuilder, private userService: UsersService, private locationsService: LocationsService, private toaster: ToastrService) {
     // get selected product 
     this.productsService.currentProduct.subscribe(product => {
@@ -72,8 +73,10 @@ export class BookingComponent implements OnInit {
 
 
 getBookingFormsPatchValue(){
+  this.showLoader = true;
   this.userService.getLoggedInUserInfo(this.userInfoLocalStorage).subscribe((user:User) =>{
     this.user = user;
+    this.showLoader = false;
     // console.log(this.user);      
     this.bookingForm.patchValue({
     productName: this.product?.productName,
