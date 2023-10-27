@@ -36,7 +36,7 @@
 
           <ng-container *ngIf="user?.uid; else guestMenu">
             <li class="mx-2">
-              <a [routerLink]="'/dashboard'" class="link">Dashboard</a>
+              <a routerLink="/dashboard/home" class="link">Dashboard</a>
             </li>
             <li class="mx-2">
               <!-- <img class="w-7 h-7 rounded-full" [src]="user?.photoURL" alt="user"> -->
@@ -83,7 +83,7 @@
       </li> -->
       <ng-container *ngIf="user?.uid; else guestMenu">
         <li class="mx-2">
-          <a [routerLink]="'/dashboard'" class="link">Dashboard</a>
+          <a routerLink="/dashboard/home" class="link">Dashboard</a>
         </li>
         <li class="mx-2">
           <!-- <img class="w-7 h-7 " [src]="user?.photoURL" alt="user"> -->

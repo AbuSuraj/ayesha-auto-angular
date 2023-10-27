@@ -8,11 +8,13 @@ import { BuyersComponent } from './buyers/buyers.component';
 import { ReportListComponent } from './report-list/report-list.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddProductComponent } from './add-product/add-product.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const routes: Routes = [
   {path:'', component: DashboardComponent ,
      children:[
     {path:'home', component: DashboardHomeComponent},
+    {path:'orders', component: OrdersComponent},
     {path:'sellers', component: SellersComponent},
     {path:'buyers', component: BuyersComponent},
     {path:'reports', component: ReportListComponent},
