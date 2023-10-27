@@ -19,6 +19,7 @@ export class SignupComponent {
   signupForm: FormGroup;
   signupError: string = '';
   showPassword: boolean = false;
+  showLoader: boolean = false;
   constructor(private fb: FormBuilder, private authService: AuthService, private userService: UsersService, private router: Router, private toastr: ToastrService, private authTokenService: AuthTokenService) {
     this.signupForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -29,6 +30,7 @@ export class SignupComponent {
   }
 
   onSubmit(user:any) {
+    this.showLoader = true;
     this.signupForm.markAllAsTouched()
     if (this.signupForm.valid) {
       this.signupError = '';
@@ -41,7 +43,8 @@ export class SignupComponent {
         this.authService.signUpWithEmail(user.email, user.password);
         this.authService.updateUserProfile(user.name);
         this.getToken(user.email)
-        console.log(user.name)
+        // console.log(user.name)
+        this.showLoader = false;
         const userInfo = {
           displayName: user.name,
         };
@@ -49,6 +52,7 @@ export class SignupComponent {
 
         (err)=>{
           this.toastr.error(`${err}`, 'Error');
+          this.showLoader = false;
         }
       );
     } else {

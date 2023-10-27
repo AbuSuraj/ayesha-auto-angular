@@ -3,16 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
-import { Product } from 'src/app/shared/interfaces/products.interface';
+import { Product } from 'src/app/shared/interfaces/products.interface'; 
 import { ProductsService } from 'src/app/shared/services/service-proxies/products/products.service';
-import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
-import { TooltipDirective } from 'src/app/shared/tool-tip/tool-tip.directives';
+import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service'; 
 
 @Component({
   selector: 'app-products-details',
   templateUrl: './products-details.component.html',
-  styleUrls: ['./products-details.component.less'],
-  // directives: [TooltipDirective],
+  styleUrls: ['./products-details.component.less'], 
 })
 export class ProductsDetailsComponent implements OnInit {
   id: any;
@@ -22,9 +20,9 @@ export class ProductsDetailsComponent implements OnInit {
   year = this.date.getFullYear()
   faCheck = faCheck;
   tooltipText: string='Price ';
-
+  showLoader: boolean = false;
   
-  constructor(private activateRoute: ActivatedRoute, private productsService: ProductsService, private userService: UsersService, private toastr: ToastrService, private router: Router) {}
+  constructor(private activateRoute: ActivatedRoute, private productsService: ProductsService, private userService: UsersService, private toastr: ToastrService, private router: Router ) {}
   
   ngOnInit(): void {
     const id = this.activateRoute.snapshot.paramMap.get('id');
@@ -41,6 +39,8 @@ export class ProductsDetailsComponent implements OnInit {
   }
 
   getProducts(){
+    // this.loaderService.show();
+    this.showLoader = true;
     this.productsService.getProductsByCategory(this.id).pipe(
       catchError((error) =>{
         this.toastr.error('Internal Error!', 'Error');
@@ -50,10 +50,14 @@ export class ProductsDetailsComponent implements OnInit {
     )
     .subscribe(
       (data) => {
+        // this.loaderService.hide();
+        this.showLoader = false;
         this.products = data;
         // console.log(this.products);
       },
       (error) => {
+        // this.loaderService.hide();
+        this.showLoader = false;
         console.error('Error fetching products:', error);
       }
     );

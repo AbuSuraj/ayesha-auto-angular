@@ -9,9 +9,9 @@ import { ProductsService } from 'src/app/shared/services/service-proxies/product
   styleUrls: ['./categories.component.less']
 })
 export class CategoriesComponent implements OnInit {
-  isLoading = false;
+   
   categories: Categories [] = [];
-
+  showLoader: boolean = false;
   constructor(private productService: ProductsService) { }
   
   ngOnInit(): void {
@@ -19,15 +19,15 @@ export class CategoriesComponent implements OnInit {
 }
 
 getCategories(): void {
-  this.isLoading = true;
+  this.showLoader = true;
   this.productService.getCategories().subscribe(result => {
     this.categories = result;
-    this.isLoading = false;
+    this.showLoader = false;
     console.log(this.categories)
     },
     error => {
       console.error("Error: " + error)
-      this.isLoading = false;
+      this.showLoader = false;
     });
   }
 }

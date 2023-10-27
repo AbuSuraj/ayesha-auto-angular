@@ -1,4 +1,4 @@
-<div class="h-full flex justify-center my-10">
+<div *ngIf="!showLoader; else loader" class="h-full flex justify-center my-10">
     <div class="w-96 p-7 backdrop-blur-0 backdrop-saturate-144  bg-black border-opacity-25 border-white border-solid border-1 rounded-xl">
       <h2 class="text-xl text-center text-white">Sign Up</h2>
       <form  [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm.value)">
@@ -89,6 +89,10 @@
       </button>
     </div>
   </div>
+
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
   
 <!-- <div class="h-full flex justify-center my-10">
     <div class="w-96 p-7 backdrop-blur-0 backdrop-saturate-144 bg-black border-opacity-25 border-white border-solid border-1 rounded-xl">

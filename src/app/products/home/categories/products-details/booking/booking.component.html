@@ -1,4 +1,4 @@
-<div class="w-80 mx-auto my-5 bg-slate-100 shadow-2xl p-4 rounded-3xl">
+<div *ngIf="!showLoader; else loader" class="w-80 mx-auto my-5 bg-slate-100 shadow-2xl p-4 rounded-3xl">
   <h1 class="text-xl text-center font-bold">Booked Your Car</h1>
   <form  [formGroup]="bookingForm" (ngSubmit)="handleBooking(bookingForm.value)">
     <div class="form__group field mx-auto">
@@ -60,3 +60,6 @@
     </button>
   </form>
 </div>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
