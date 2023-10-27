@@ -14,6 +14,11 @@ import { AuthService } from './shared/services/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { LottieModule } from 'ngx-lottie';
+
+export function playerFactory() { // add this line
+  return import('lottie-web'); // add this line
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +33,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFireAuthModule,
     HttpClientModule,
     BrowserAnimationsModule, 
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    LottieModule.forRoot({ player: playerFactory})
   ],
   // exports: [ HeadersComponent,
   //   FooterComponent],
