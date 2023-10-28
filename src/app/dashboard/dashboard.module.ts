@@ -12,6 +12,7 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { OrdersComponent } from './orders/orders.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function playerFactory():any { // add this line
   return import('lottie-web'); // add this line
@@ -31,6 +32,7 @@ export function playerFactory():any { // add this line
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    FontAwesomeModule,
     LottieModule.forRoot({ player: playerFactory})
   ]
 })
