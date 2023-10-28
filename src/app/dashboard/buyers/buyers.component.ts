@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
 import Swal from 'sweetalert2';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { Observable, tap } from 'rxjs';
+import {PaginationInstance} from 'ngx-pagination';
 @Component({
   selector: 'app-buyers',
   templateUrl: './buyers.component.html',
@@ -9,39 +11,96 @@ import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 })
 export class BuyersComponent implements OnInit {
   // loading: boolean;
-  buyers: any = { data: [], total: 0, currentPage: 1, totalPages: 1 };
-  pageNumber = 1;
-  buyersPerPage = 5;
-  sortColumn = 'name';
-  sortDirection = 'asc';
+  // buyers: any = { data: [], total: 0, currentPage: 1, totalPages: 1 };
+  // currentPage = 1;
+  itemsPerPage = 5;
+  // sortColumn = 'name';
+  // sortDirection = 'asc';
+  //  p: number = 1;
+  //  total!:number;
+  responsive = true;
   faArrowUp = faArrowUp;
   faArrowDown = faArrowDown;
+  buyers: any[] = [];
+  psize = 5;
+  currentPage = 1;
+
+    asyncBuyers!: Observable<any[]>;
+    p: number = 1;
+    total!: number;
+    loading!: boolean;
+
+    sortColumn: string = 'name';
+    sortDirection: string = 'asc';
+  asyncMeals: any;
+
+  //   public config: PaginationInstance = {
+       
+  //     itemsPerPage: 5,
+  //     currentPage: 1
+  // };
+
+  //   public labels: any = {
+  //     previousLabel: 'Previous',
+  //     nextLabel: 'Next',
+  //     screenReaderPaginationLabel: 'Pagination',
+  //     screenReaderPageLabel: 'page',
+  //     screenReaderCurrentLabel: `You're on page`
+  // };
+
   constructor(
     private userService: UsersService, 
   ) {}
 
   ngOnInit(): void {
     // this.loading = this.authService.isLoading;
-    this.fetchBuyers();
+    this.getPage(1)
+    // this.getBuyers()
   }
 
-  fetchBuyers(): void {
+  getPage(page: number) {
+    this.loading = true;
+    // const page1 = this.currentPage;
+    // const buyersPerPage = 5;
     this.userService.getBuyers(
-      this.pageNumber,
-      this.buyersPerPage,
+      page,
+      this.itemsPerPage,
       this.sortColumn,
       this.sortDirection
-    ).subscribe((data: any) => {
-      this.buyers = data;
+    ).subscribe((res: any) => {
+      // this.buyers = data;
+      this.total = res.total;
+      this.p = page;
+      this.buyers = res.data;
+      this.loading = false;
+      console.log(res);
       console.log(this.buyers);
       
     });
   }
 
-  handlePageClick(selected: number): void {
-    this.pageNumber = selected + 1;
-    this.fetchBuyers();
-  }
+//   getPage(page: number) {
+//     this.loading = true;
+//     this.asyncMeals = this.getBuyers(page).pipe(
+//         tap(res => {
+//             this.total = res.total;
+//             this.p = page;
+//             this.loading = false;
+//         }),
+//         map(res => res.items)
+//     );
+// }
+// }
+
+  // onPageChange(number: number) {
+  //   this.currentPage = number;
+  //   this.getBuyers(); // Load data for the new page
+  // }
+
+  // handlePageClick(selected: number): void {
+  //   this.currentPage = selected + 1;
+  //   this.getBuyers(this.currentPage);
+  // }
 
   handleSort(column: string): void {
     if (this.sortColumn === column) {
@@ -50,7 +109,7 @@ export class BuyersComponent implements OnInit {
       this.sortColumn = column;
       this.sortDirection = 'asc';
     }
-    this.fetchBuyers();
+    this.getPage(this.p);
   }
 
   handleDelete(id: string): void {
@@ -66,7 +125,7 @@ export class BuyersComponent implements OnInit {
       if (result.isConfirmed) {
         this.userService.deleteBuyer(id).subscribe((data: any) => {
           if (data?.deletedCount > 0) {
-            this.fetchBuyers();
+            this.getPage(this.p);
           }
           Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
         });

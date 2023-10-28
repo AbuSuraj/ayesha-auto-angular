@@ -1,6 +1,6 @@
 <div class="mx-4">
     <h2 class="text-3xl my-5 text-center">
-      Numbers of Buyers: {{ buyers?.total }}
+      Numbers of Buyers: {{ total }}
     </h2>
     <div class="overflow-x-auto shadow-green-100">
       <table class="table w-2/3 ml-8 mr-12">
@@ -34,14 +34,14 @@
           </tr>
         </thead>
         <tbody>
-          <!-- <ng-container *ngIf="loading">
+           <!-- <ng-container *ngIf="loading">
             <tr>
               <td colspan="4" class="text-center py-5">
                 <div class="spinner"></div>
               </td>
             </tr>
-          </ng-container> -->
-          <tr class="hover" *ngFor="let buyer of buyers?.data; let i = index">
+          </ng-container>   -->
+          <tr class="hover" *ngFor="let buyer of buyers  | paginate: { id: 'server', itemsPerPage: 5, currentPage: p, totalItems: total }">
             <td>{{ buyer.name }}</td>
             <td>{{ buyer.email }}</td>
             <td>
@@ -53,6 +53,6 @@
         </tbody>
       </table>
     </div>
-    
-  </div>
+    <pagination-controls  id="server"  (pageChange)="getPage($event)"></pagination-controls>
+</div>
   
