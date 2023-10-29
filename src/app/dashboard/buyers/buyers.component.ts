@@ -40,13 +40,13 @@ export class BuyersComponent implements OnInit {
   //     currentPage: 1
   // };
 
-  //   public labels: any = {
-  //     previousLabel: 'Previous',
-  //     nextLabel: 'Next',
-  //     screenReaderPaginationLabel: 'Pagination',
-  //     screenReaderPageLabel: 'page',
-  //     screenReaderCurrentLabel: `You're on page`
-  // };
+    public labels: any = {
+      previousLabel: 'Previous',
+      nextLabel: 'Next',
+      screenReaderPaginationLabel: 'Pagination',
+      screenReaderPageLabel: 'page',
+      screenReaderCurrentLabel: `You're on page`
+  };
 
   constructor(
     private userService: UsersService, 

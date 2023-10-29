@@ -1,8 +1,8 @@
 <div class="mx-4">
-    <h2 class="text-3xl my-5 text-center">
+    <h2 class="text-3xl my-5 ml-20 md:ml-[26rem]">
       Numbers of Buyers: {{ total }}
     </h2>
-    <div class="overflow-x-auto shadow-green-100">
+    <div class="overflow-x-auto shadow-green-100 h-auto md:h-[300px]">
       <table class="table w-2/3 ml-8 mr-12">
         <thead class="bg-slate-100">
           <tr>
@@ -53,6 +53,14 @@
         </tbody>
       </table>
     </div>
-    <pagination-controls  id="server"  (pageChange)="getPage($event)"></pagination-controls>
+    <div class="w-[32rem] md:w-[46rem] mx-auto mt-10">
+      <pagination-controls 
+      [previousLabel]="labels.previousLabel"
+                         [nextLabel]="labels.nextLabel"
+                         [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+                         [screenReaderPageLabel]="labels.screenReaderPageLabel"
+                         [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+      id="server"  (pageChange)="getPage($event)"></pagination-controls>
+    </div>
 </div>
   
