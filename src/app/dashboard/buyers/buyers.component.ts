@@ -24,7 +24,7 @@ export class BuyersComponent implements OnInit {
     asyncBuyers!: Observable<any[]>;
     p: number = 1;
     total!: number;
-    loading!: boolean;
+    loading: boolean = false;
 
     sortColumn: string = 'name';
     sortDirection: string = 'asc';
