@@ -4,20 +4,16 @@ import Swal from 'sweetalert2';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { Observable, tap } from 'rxjs';
 import {PaginationInstance} from 'ngx-pagination';
+import { AnimationOptions } from 'ngx-lottie';
 @Component({
   selector: 'app-buyers',
   templateUrl: './buyers.component.html',
   styleUrls: ['./buyers.component.less']
 })
 export class BuyersComponent implements OnInit {
-  // loading: boolean;
-  // buyers: any = { data: [], total: 0, currentPage: 1, totalPages: 1 };
-  // currentPage = 1;
+   
   itemsPerPage = 5;
-  // sortColumn = 'name';
-  // sortDirection = 'asc';
-  //  p: number = 1;
-  //  total!:number;
+  
   responsive = true;
   faArrowUp = faArrowUp;
   faArrowDown = faArrowDown;
@@ -33,7 +29,9 @@ export class BuyersComponent implements OnInit {
     sortColumn: string = 'name';
     sortDirection: string = 'asc';
   asyncMeals: any;
-
+  options: AnimationOptions = {
+    path: 'https://lottie.host/36f5b322-54e6-47a5-ba5e-2541e295fc40/AF6vrQPxj1.json', 
+  };
   //   public config: PaginationInstance = {
        
   //     itemsPerPage: 5,
