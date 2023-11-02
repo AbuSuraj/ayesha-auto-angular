@@ -32,7 +32,37 @@ export class UsersService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
     });
-    return this.http.get(`${this.BASE_URL}/sellers`, {headers})
+    return this.http.get<any>(`${this.BASE_URL}/sellers`, {headers})
+  }
+
+  // get buyers 
+
+  getBuyers(
+    page: number,
+    limit: number,
+    sortColumn: string,
+    sortDirection: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    });
+
+    const url = `${this.BASE_URL}/buyers?page=${page}&limit=${limit}&sort=${sortColumn}&order=${sortDirection}`;
+    
+    return this.http.get<any>(url, { headers });
+  }
+     
+  // delete a buyers 
+  deleteBuyer(id: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    });
+
+    const url = `${this.BASE_URL}/buyer/${id}`;
+    
+    return this.http.delete(url, { headers });
   }
 
 }

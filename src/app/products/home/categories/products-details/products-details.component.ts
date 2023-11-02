@@ -43,7 +43,7 @@ export class ProductsDetailsComponent implements OnInit {
     this.showLoader = true;
     this.productsService.getProductsByCategory(this.id).pipe(
       catchError((error) =>{
-        this.toastr.error('Internal Error!', 'Error');
+        this.toastr.error(`Internal Error! please login`, 'Error');
         console.error(error)
         return []
       })
