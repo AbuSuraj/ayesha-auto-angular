@@ -30,7 +30,7 @@ export class BuyersComponent implements OnInit {
     sortDirection: string = 'asc';
   asyncMeals: any;
   options: AnimationOptions = {
-    path: 'https://lottie.host/36f5b322-54e6-47a5-ba5e-2541e295fc40/AF6vrQPxj1.json', 
+    path: 'https://lottie.host/71158c69-388c-4ac1-bbfb-2a8b9a27b139/IZFik2D6BT.json', 
   };
   //   public config: PaginationInstance = {
        
