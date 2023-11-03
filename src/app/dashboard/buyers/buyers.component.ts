@@ -128,7 +128,7 @@ export class BuyersComponent implements OnInit {
           if (data?.deletedCount > 0) {
             this.getBuyers(this.p);
           }
-          Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+          Swal.fire('Deleted!', 'This buyer has been deleted.', 'success');
         });
       }
     });

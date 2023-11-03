@@ -1,0 +1,148 @@
+.delete-button-container{   
+    .delete-button {
+        position: relative;
+    width: 90px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 1px solid #cc0000;
+    background-color: #e50000;
+    overflow: hidden;
+}
+
+.delete-button, .button__icon, .button__text {
+    transition: all 0.3s;
+}
+
+.delete-button .button__text {
+    transform: translateX(12px);
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  .delete-button .button__icon {
+      position: absolute;
+      transform: translateX(60px);
+      height: 100%;
+      width: 20px;
+      background-color: #e50000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .delete-button .svg {
+        width: 20px;
+    }
+    
+    .delete-button:hover {
+        background: #cc0000;
+    }
+    
+    .delete-button:hover .button__text {
+        color: transparent;
+    }
+    
+    .delete-button:hover .button__icon {
+        width: 88px;
+        transform: translateX(0);
+    }
+    
+    .delete-button:active .button__icon {
+        background-color: #b20000;
+    }
+    
+    .delete-button:active {
+        border: 1px solid #b20000;
+    }
+}
+
+.undo-verification{
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 6px 10px;
+        gap: 8px;
+        height: 24px;
+        width: 95px;
+        border: none;
+        background: #ff362b34;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+      
+      .lable {
+        line-height: 20px;
+        font-size: 12px;
+        color: #FF342B;
+        font-family: sans-serif;
+        letter-spacing: 1px;
+      }
+      
+      .button:hover {
+        background: #ff362b52;
+      }
+      
+      .button:hover .svg-icon {
+        animation: spin .8s linear; /* Change to 1s and remove iteration count */
+      }
+      
+      @keyframes spin {
+        0% {
+          transform: rotate(180deg);
+        }
+      
+        // 50% { /* Rotate to 180 degrees at 50% */
+        //   transform: rotate(180deg);
+        // }
+      
+        // 100% {
+        //   transform: rotate(0deg);
+        // }
+      }
+}
+
+.verified-text-container{
+    .verified-btn {
+        outline: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #40B3A2;
+        width: 100px;
+        height: 20px;
+        border: 0;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+        box-sizing: border-box;
+        padding: 16px 20px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      
+      .verified-btn:hover {
+        opacity: .95;
+      }
+      
+      .verified-btn .animation {
+        border-radius: 100%;
+        animation: ripple 0.6s linear infinite;
+      }
+      
+      @keyframes ripple {
+        0% {
+          box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1), 0 0 0 20px rgba(255, 255, 255, 0.1), 0 0 0 40px rgba(255, 255, 255, 0.1), 0 0 0 60px rgba(255, 255, 255, 0.1);
+        }
+      
+        100% {
+          box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.1), 0 0 0 40px rgba(255, 255, 255, 0.1), 0 0 0 60px rgba(255, 255, 255, 0.1), 0 0 0 80px rgba(255, 255, 255, 0);
+        }
+      }
+}

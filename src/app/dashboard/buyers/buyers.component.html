@@ -18,8 +18,8 @@
                   [ngClass]="sortColumn === 'name'? 'text-black' :''"
                   class="ml-3 bg-transparent border-none cursor-pointer p-0 text-base text-black-600 transition-colors duration-300"
                 ></fa-icon>
-                <ng-container *ngIf="sortColumn === 'name'">
-                </ng-container>
+                <!-- <ng-container *ngIf="sortColumn === 'name'">
+                </ng-container> -->
               </th>
               <th
               (click)="handleSort('email')"
