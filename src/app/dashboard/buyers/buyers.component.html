@@ -13,11 +13,12 @@
                 class="w-1/3 cursor-pointer"
               >
                 Name
+                <fa-icon
+                  [icon]="sortIcon"
+                  [ngClass]="sortColumn === 'name'? 'text-black' :''"
+                  class="ml-3 bg-transparent border-none cursor-pointer p-0 text-base text-black-600 transition-colors duration-300"
+                ></fa-icon>
                 <ng-container *ngIf="sortColumn === 'name'">
-                  <fa-icon
-                    [icon]="sortDirection === 'asc' ? faArrowUp : faArrowDown"
-                    class="ml-3 bg-transparent border-none cursor-pointer p-0 text-base text-black-600 hover:text-gray-600 transition-colors duration-300"
-                  ></fa-icon>
                 </ng-container>
               </th>
               <th
@@ -25,11 +26,12 @@
                 class="w-1/3 cursor-pointer"
                 >
                 Email
+                <fa-icon
+                  [icon]="sortIcon"
+                  [ngClass]="sortColumn === 'email'? 'text-black' :''"
+                  class="ml-3 bg-transparent border-none cursor-pointer p-0 text-base text-black-600 transition-colors duration-300"
+                  ></fa-icon>
                 <ng-container *ngIf="sortColumn === 'email'">
-                  <fa-icon
-                    [icon]="sortDirection === 'asc' ? faArrowUp : faArrowDown"
-                    class="ml-3 bg-transparent border-none cursor-pointer p-0 text-base text-black-600 hover:text-gray-600 transition-colors duration-300"
-                    ></fa-icon>
                 </ng-container>
               </th>
               <th class="w-[20%]">Action</th>
@@ -61,7 +63,7 @@
                            [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
                            [screenReaderPageLabel]="labels.screenReaderPageLabel"
                            [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
-        id="server"  (pageChange)="getPage($event)"></pagination-controls>
+        id="server"  (pageChange)="getBuyers($event)"></pagination-controls>
       </div>
     </div>
   

@@ -20,6 +20,7 @@ export class BuyersComponent implements OnInit {
   buyers: any[] = [];
   psize = 5;
   currentPage = 1;
+  sortIcon = this.faArrowUp; 
 
     asyncBuyers!: Observable<any[]>;
     p: number = 1;
@@ -52,11 +53,11 @@ export class BuyersComponent implements OnInit {
 
   ngOnInit(): void {
     // this.loading = this.authService.isLoading;
-    this.getPage(1)
+    this.getBuyers(1)
     // this.getBuyers()
   }
 
-  getPage(page: number) {
+  getBuyers(page: number) {
     this.loading = true;
     // const page1 = this.currentPage;
     // const buyersPerPage = 5;
@@ -107,7 +108,9 @@ export class BuyersComponent implements OnInit {
       this.sortColumn = column;
       this.sortDirection = 'asc';
     }
-    this.getPage(this.p);
+    this.sortColumn = column;
+    this.sortIcon = this.sortDirection === 'asc' ? this.faArrowUp : this.faArrowDown;
+    this.getBuyers(this.p);
   }
 
   handleDelete(id: string): void {
@@ -123,7 +126,7 @@ export class BuyersComponent implements OnInit {
       if (result.isConfirmed) {
         this.userService.deleteBuyer(id).subscribe((data: any) => {
           if (data?.deletedCount > 0) {
-            this.getPage(this.p);
+            this.getBuyers(this.p);
           }
           Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
         });
