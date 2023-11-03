@@ -67,7 +67,7 @@ options: AnimationOptions = {
     }
     this.sortColumn = column;
     this.sortIcon = this.sortDirection === 'asc' ? this.faArrowUp : this.faArrowDown;
-    this.getSellers(this.p);
+    this.getSellers(this.currentPage);
   }
 
   handleDelete(id: string): void {
@@ -83,7 +83,7 @@ options: AnimationOptions = {
       if (result.isConfirmed) {
         this.userService.deleteBuyer(id).subscribe((data: any) => {
           if (data?.deletedCount > 0) {
-            this.getSellers(this.p);
+            this.getSellers(this.currentPage);
           }
           Swal.fire('Deleted!', 'This seller has been deleted.', 'success');
         });
@@ -106,7 +106,7 @@ options: AnimationOptions = {
           // if (data?.deletedCount > 0) {
           //   this.getSellers(this.p);
           // }
-          this.getSellers(this.p);
+          this.getSellers(this.currentPage);
           Swal.fire('Verified!', 'This seller has been verified.', 'success');
         });
       }

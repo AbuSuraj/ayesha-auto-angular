@@ -36,7 +36,7 @@
                     </tr> -->
                 </thead>
                 <tbody>
-                    <tr class="hover" *ngFor="let seller of sellers | paginate: {id:'server', itemsPerPage:5, currentPage:p, totalItems:total}">
+                    <tr class="hover" *ngFor="let seller of sellers | paginate: {id:'server', itemsPerPage:5, currentPage:currentPage, totalItems:total}">
                         <td class="text-xs md:text-base">{{seller.name}}</td>
                         <td class="text-xs md:text-base">{{seller.email}}</td>
                         <td>

@@ -39,7 +39,7 @@
           </thead>
           <tbody>
            
-            <tr class="hover" *ngFor="let buyer of buyers  | paginate: { id: 'server', itemsPerPage: 5, currentPage: p, totalItems: total }">
+            <tr class="hover" *ngFor="let buyer of buyers  | paginate: { id: 'server', itemsPerPage: 5, currentPage: currentPage, totalItems: total }">
               <td>{{ buyer.name }}</td>
               <td>{{ buyer.email }}</td>
               <td>

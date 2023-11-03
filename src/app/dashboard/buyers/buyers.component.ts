@@ -69,7 +69,7 @@ export class BuyersComponent implements OnInit {
     ).subscribe((res: any) => {
       // this.buyers = data;
       this.total = res.total;
-      this.p = page;
+      this.currentPage = page;
       this.buyers = res.data;
       this.loading = false;
       console.log(res);
@@ -110,7 +110,7 @@ export class BuyersComponent implements OnInit {
     }
     this.sortColumn = column;
     this.sortIcon = this.sortDirection === 'asc' ? this.faArrowUp : this.faArrowDown;
-    this.getBuyers(this.p);
+    this.getBuyers(this.currentPage);
   }
 
   handleDelete(id: string): void {
@@ -126,7 +126,7 @@ export class BuyersComponent implements OnInit {
       if (result.isConfirmed) {
         this.userService.deleteBuyer(id).subscribe((data: any) => {
           if (data?.deletedCount > 0) {
-            this.getBuyers(this.p);
+            this.getBuyers(this.currentPage);
           }
           Swal.fire('Deleted!', 'This buyer has been deleted.', 'success');
         });
