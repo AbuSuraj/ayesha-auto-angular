@@ -48,8 +48,8 @@
                             </div>
                         </td>
                         <td>
-                           <span class="flex justify-evenly items-center" *ngIf="seller.verify">
-                            <div class="verified-text-container">
+                           <span class="flex items-center" *ngIf="seller.verify; else verifyBlock">
+                            <div class="verified-text-container mr-2">
                                 <button class="verified-btn"><i class="animation"></i>Verified<i class="animation"></i>
                                 </button>
                             </div>          
@@ -60,6 +60,10 @@
                                       </button>
                                 </span>
                            </span> 
+                           <ng-template #verifyBlock>
+                          
+                            <button class="btn btn-xs btn-secondary"><strong>Verify</strong></button>
+                           </ng-template>
                         </td>
                     </tr>
                 </tbody>
