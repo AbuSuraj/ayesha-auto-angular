@@ -11,18 +11,19 @@ import Swal from 'sweetalert2';
 })
 export class SellersComponent implements OnInit {
 
-  sellers:any;
-  itemsPerPage:number = 3;
+  sellers:any [] = [];
+  itemsPerPage:number = 5;
 
   faArrowUp = faArrowUp;
   faArrowDown = faArrowDown;
   currentPage = 1;
-  p = 1;
+  p: number = 1;
   sortColumn:string = 'name';
   sortDirection:string = 'asc';
   loading: boolean = false;
-  total!:number;
+  total!: number;
   sortIcon  = faArrowUp;
+  responsive = true;
 
   public labels: any = {
     previousLabel: 'Previous',
@@ -49,8 +50,10 @@ options: AnimationOptions = {
       this.total = res.total;
       this.sellers = res.data;
       this.currentPage = page;
+      this.p = page;
       this.loading = false;
       console.log(res);
+      console.log(this.sellers);
       
     })
   }

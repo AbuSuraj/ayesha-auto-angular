@@ -1,9 +1,9 @@
-<div *ngIf="!loading" class="flex justify-start max-w-[1110px] mr-6 flex-col-reverse  lg:flex-row lg:items-center"> 
+<div *ngIf="!loading; else loader" class="flex justify-start max-w-[1110px] mr-6 flex-col-reverse  lg:flex-row lg:items-center"> 
     <div class="ml">
         <h2 class="text-3xl my-5 ml-32 md:ml-64">
             Numbers of Sellers: <span class="text-sky-500">{{total}}</span>
         </h2>
-        <div class="overflow-x-auto shadow-sky-300 h-auto md:h-[330px]">
+        <div class="overflow-x-auto shadow-sky-300 h-auto md:h-[366px]">
             <table class="sm:table-xs md:table-md table w-[88%] lg:w-[710px] ml-8 mr-12">
                 <thead class="bg-slate-100">
                     <tr>
@@ -36,7 +36,7 @@
                     </tr> -->
                 </thead>
                 <tbody>
-                    <tr class="hover" *ngFor="let seller of sellers | paginate: {id:'server', itemsPerPage:3, currentPage:p, totalItems:total}">
+                    <tr class="hover" *ngFor="let seller of sellers | paginate: {id:'server', itemsPerPage:5, currentPage:p, totalItems:total}">
                         <td class="text-xs md:text-base">{{seller.name}}</td>
                         <td class="text-xs md:text-base">{{seller.email}}</td>
                         <td>
@@ -83,3 +83,7 @@
         <ng-lottie  width="400px" height="400px" [options]="options"></ng-lottie>
       </div>  
 </div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

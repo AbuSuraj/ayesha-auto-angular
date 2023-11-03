@@ -18,7 +18,7 @@ export class BuyersComponent implements OnInit {
   faArrowUp = faArrowUp;
   faArrowDown = faArrowDown;
   buyers: any[] = [];
-  psize = 5;
+ 
   currentPage = 1;
   sortIcon = this.faArrowUp; 
 
