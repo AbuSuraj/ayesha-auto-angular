@@ -76,4 +76,16 @@ export class UsersService {
     return this.http.get<any>(url, { headers });
   }
 
+  // verify seller 
+  verifySeller(id:string){
+    const headers = new HttpHeaders(
+       {
+        "content-type": "application/json",
+
+        'Authorization': `bearer ${localStorage.getItem("accessToken")}`,
+      }
+    )
+    return this.http.patch<any>(`https://ayeshaauto.vercel.app/verifySeller/${id}`,{},{headers})
+  }
+
 }

@@ -83,4 +83,26 @@ export class SellersComponent implements OnInit {
     });
   }
 
+  handleVerify(id:string){
+    Swal.fire({
+      title: "Are you sure to verify this seller?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, verify it!",
+    }).then((result) => {
+      if(result.isConfirmed){
+        this.userService.verifySeller(id).subscribe((data: any) => {
+          // if (data?.deletedCount > 0) {
+          //   this.getSellers(this.p);
+          // }
+          this.getSellers(this.p);
+          Swal.fire('Verified!', 'This seller has been verified.', 'success');
+        });
+      }
+    })
+  }
+
 }
