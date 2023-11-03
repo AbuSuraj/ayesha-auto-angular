@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { AnimationOptions } from 'ngx-lottie';
 import { UsersService } from 'src/app/shared/services/service-proxies/users/users.service';
 import Swal from 'sweetalert2';
 
@@ -29,6 +30,10 @@ export class SellersComponent implements OnInit {
     screenReaderPaginationLabel: 'Pagination',
     screenReaderPageLabel: 'page',
     screenReaderCurrentLabel: `You're on page`
+};
+
+options: AnimationOptions = {
+  path: 'https://lottie.host/7910032c-3033-4570-a6a3-1aeebafedf07/JAcqYqylYk.json', 
 };
 
   constructor(private userService: UsersService){

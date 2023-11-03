@@ -1,10 +1,10 @@
-<div *ngIf="!loading" class="flex w-4/5 flex-col-reverse md:flex-row lg:flex-row md:items-center"> 
-    <div class="ml w-full">
+<div *ngIf="!loading" class="flex justify-start max-w-[1110px] mr-6 flex-col-reverse  lg:flex-row lg:items-center"> 
+    <div class="ml">
         <h2 class="text-3xl my-5 ml-32 md:ml-64">
             Numbers of Sellers: <span class="text-sky-500">{{total}}</span>
         </h2>
         <div class="overflow-x-auto shadow-sky-300 h-auto md:h-[330px]">
-            <table class="table w-3/4 ml-8 mr-12">
+            <table class="sm:table-xs md:table-md table w-[88%] lg:w-[710px] ml-8 mr-12">
                 <thead class="bg-slate-100">
                     <tr>
                         <th (click)="handleSort('name')">
@@ -37,8 +37,8 @@
                 </thead>
                 <tbody>
                     <tr class="hover" *ngFor="let seller of sellers | paginate: {id:'server', itemsPerPage:3, currentPage:p, totalItems:total}">
-                        <td>{{seller.name}}</td>
-                        <td>{{seller.email}}</td>
+                        <td class="text-xs md:text-base">{{seller.name}}</td>
+                        <td class="text-xs md:text-base">{{seller.email}}</td>
                         <td>
                             <div class="delete-button-container">
                                 <button (click)="handleDelete(seller._id)" class="delete-button" type="button">
@@ -50,8 +50,8 @@
                         <td>
                            <span class="flex items-center" *ngIf="seller.verify; else verifyBlock">
                             <div class="verified-text-container mr-2">
-                                <button class="verified-btn"><i class="animation"></i>Verified<i class="animation"></i>
-                                </button>
+                                <span class="text-xs md:text-sm verified-btn"><i class="animation"></i>Verified<i class="animation"></i>
+                                </span>
                             </div>          
                                 <span class="undo-verification">
                                     <button class="button">
@@ -79,4 +79,7 @@
             id="server"  (pageChange)="getSellers($event)"></pagination-controls>
           </div>
     </div>
+    <div class="my-5 mx-auto md:mx-0">
+        <ng-lottie  width="400px" height="400px" [options]="options"></ng-lottie>
+      </div>  
 </div>
