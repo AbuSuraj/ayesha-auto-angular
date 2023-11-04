@@ -1,4 +1,4 @@
-<div *ngIf="!loading" class="flex w-4/5 flex-col-reverse md:flex-row lg:flex-row md:items-center">
+<div class="flex w-4/5 flex-col-reverse md:flex-row lg:flex-row md:items-center">
   <div class="ml-4 w-full">
       <h2 class="text-3xl my-5 ml-32 md:ml-64">
         Numbers of Buyers: {{ total }}
@@ -53,6 +53,11 @@
                 </button>
               </td>
             </tr>
+            <tr *ngIf="loading">
+              <td [attr.colspan]="6" class="text-center py-5">
+                <app-loader></app-loader>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -71,6 +76,6 @@
     <ng-lottie  width="400px" height="400px" [options]="options"></ng-lottie>
   </div>  
 </div>
-<ng-container class="text-center" *ngIf="loading">
+<!-- <ng-container class="text-center" *ngIf="loading">
   <app-loader></app-loader>
-</ng-container> 
+</ng-container>  -->

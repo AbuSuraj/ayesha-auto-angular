@@ -1,10 +1,10 @@
-<div *ngIf="!loading; else loader" class="flex justify-start max-w-[1110px] mr-6 flex-col-reverse  lg:flex-row lg:items-center"> 
+<div  class="flex justify-start max-w-[1110px] mr-6 flex-col-reverse  lg:flex-row lg:items-center"> 
     <div class="ml">
         <h2 class="text-3xl my-5 ml-32 md:ml-64">
             Numbers of Sellers: <span class="text-sky-500">{{total}}</span>
         </h2>
         <div class="overflow-x-auto shadow-sky-300 h-auto md:h-[366px]">
-            <table class="sm:table-xs md:table-md table w-[88%] lg:w-[710px] ml-8 mr-12">
+            <table class="sm:table-xs md:table-md table w-[88%] lg:w-[780px] ml-8 mr-12">
                 <thead class="bg-slate-100">
                     <tr>
                         <th (click)="handleSort('name')">
@@ -66,6 +66,11 @@
                            </ng-template>
                         </td>
                     </tr>
+                <tr>
+                    <td *ngIf="loading" [attr.colspan]="6" class="text-center py-5">
+                        <app-loader></app-loader>
+                    </td>
+                </tr>    
                 </tbody>
             </table>
         </div>
@@ -84,6 +89,6 @@
       </div>  
 </div>
 
-<ng-template #loader>
+<!-- <ng-template #loader>
     <app-loader></app-loader>
-</ng-template>
+</ng-template> -->
