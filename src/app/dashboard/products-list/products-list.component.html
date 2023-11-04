@@ -1,1 +1,56 @@
-<p>products-list works!</p>
+<div class="mx-4">
+    <h2 class="text-3xl my-5 text-center">
+      Total Products: {{ products.length }}
+    </h2>
+    <div class="overflow-x-auto">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <!-- <th></th> -->
+            <th>Name</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Action</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products; let i = index">
+            <!-- <th>{{ i + 1 }}</th> -->
+            <td>{{ product.productName }}</td>
+            <td>{{ product.resalePrice }}</td>
+            <td>
+              <ng-container *ngIf="product?.isPaid; else available">
+                <p>Sold</p>
+              </ng-container>
+              <ng-template #available>
+                <p>Available</p>
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="product.isPaid; else noAction">
+                <button
+                  (click)="handleAdvertise(product._id)"
+                  class="btn btn-xs btn-secondary"
+                >
+                  Advertise
+                </button>
+              </ng-container>
+              <ng-template #noAction>
+                <button class="btn btn-xs btn-accent">Advertised</button>
+              </ng-template>
+            </td>
+            <td>
+              <button (click)="handleDeleteProduct(product._id)" class="btn btn-sm">Delete</button>
+            </td>
+          </tr>
+          <tr *ngIf="loading">
+            <td [attr.colspan]="6" class="text-center py-5">
+              <div class="my-5 mx-auto w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
