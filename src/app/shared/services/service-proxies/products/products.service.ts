@@ -100,6 +100,8 @@ export class ProductsService {
     return this.http.patch<any>(`${this.BASE_URL}/products/advertise/${product.id}`,{headers});
   }
 
+  // delete a product from seller table 
+
   deleteSingleProduct(id:string):Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -110,4 +112,18 @@ export class ProductsService {
     
     return this.http.delete(url, { headers });
   }
+
+  // report-list  
+  // get report-list 
+
+  getReportedProducts(page?:number, limit?:number, sortColumn?:string, sortDirection?:string):Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}` 
+    });
+    const url = `${this.BASE_URL}/report?page=${page}&limit=${limit}&sort=${sortColumn}&order=${sortDirection}`;
+    return this.http.get<any>(url, { headers });
+  }
+
+  
 }
