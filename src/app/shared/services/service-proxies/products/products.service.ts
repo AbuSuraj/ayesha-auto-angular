@@ -68,8 +68,7 @@ export class ProductsService {
 
 
   // get products for a specific seller 
-  getProductsBySeller(email:any):Observable<any> {
-    console.log(email);
+  getProductsBySeller(email:any):Observable<any> { 
     
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -78,5 +77,16 @@ export class ProductsService {
     // return this.http.get<[]>('https://ayeshaauto.vercel.app/myproducts/seller/sarwar@b.com')
     return this.http.get<any>(`${this.BASE_URL}/myproducts/seller/${email}`,{headers});
   }
+
+  getBuyerOrders(email:any):Observable<any> { 
+    
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    })
+    // return this.http.get<[]>('https://ayeshaauto.vercel.app/myproducts/seller/sarwar@b.com')
+    return this.http.get<any>(`${this.BASE_URL}/myorders/buyer/${email}`,{headers});
+  }
+
 
 }
