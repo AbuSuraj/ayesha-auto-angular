@@ -89,5 +89,25 @@ export class ProductsService {
     return this.http.get<any>(`${this.BASE_URL}/myorders/buyer/${email}`,{headers});
   }
 
+  // advertise a product  
 
+  advertiseSingleProduct(product:any):Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    })
+ 
+    return this.http.patch<any>(`${this.BASE_URL}/products/advertise/${product.id}`,{headers});
+  }
+
+  deleteSingleProduct(product:any):Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    });
+
+    const url = `${this.BASE_URL}/product/${product._id}`;
+    
+    return this.http.delete(url, { headers });
+  }
 }

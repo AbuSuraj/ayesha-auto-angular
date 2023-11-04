@@ -28,7 +28,7 @@
               </ng-template>
             </td>
             <td>
-              <ng-container *ngIf="product.isPaid; else noAction">
+              <ng-container *ngIf="product.isAdvertised; else noAction">
                 <button
                   (click)="handleAdvertise(product._id)"
                   class="btn btn-xs btn-secondary"
