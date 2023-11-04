@@ -16,7 +16,7 @@ export class ReportListComponent implements OnInit  {
   faArrowDown = faArrowDown;
   currentPage = 1;
   p: number = 1;
-  sortColumn:string = 'name';
+  sortColumn:string = 'productName';
   sortDirection:string = 'asc';
   loading: boolean = false;
   total!: number;
@@ -54,19 +54,21 @@ constructor(private productsService: ProductsService, private toaster: ToastrSer
   }
 
   sortData(column: string){
-    if(this.sortColumn === column){
-      this.sortDirection = this.sortDirection === 'asc' ? 'asc' : 'desc';
-    } else{
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
       this.sortColumn = column;
       this.sortDirection = 'asc';
     }
-    this.sortColumn = column
+    this.sortColumn = column;
     this.sortIcon = this.sortDirection === 'asc' ? this.faArrowUp : this.faArrowDown;
     this.getReports(this.currentPage);
   
   }
 
   deleteReportedItems(reportId:string, reportedProductId:string){
+    console.log(reportId, reportedProductId);
+    
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -84,7 +86,7 @@ constructor(private productsService: ProductsService, private toaster: ToastrSer
           switchMap(([reportResponse, reportedProductResponse]) => {
             if (reportedProductResponse?.deletedCount > 0) {
               this.getReports(this.currentPage);
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+             
             }
             return [];
           }),
@@ -92,7 +94,9 @@ constructor(private productsService: ProductsService, private toaster: ToastrSer
             this.toaster.error(`${error} `, 'Internal Server Error');
             return [];
           })
-        ).subscribe();
+        ).subscribe(res =>{
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        });
         // this.productsService.deleteReport(reportId).subscribe(res =>{
         //   this.productsService.deleteReportedProduct(reportedProductId).subscribe(res =>{
         //     if(res?.deletedCount>0){

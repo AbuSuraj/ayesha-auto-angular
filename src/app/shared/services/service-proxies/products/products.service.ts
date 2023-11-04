@@ -136,7 +136,7 @@ export class ProductsService {
     
     return this.http.delete(url, { headers });
   }
-  // delete reported porducts 
+  // delete report
   deleteReport(id:string):Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

@@ -15,24 +15,20 @@
                   Product Name
                   <fa-icon
                     [icon]="sortIcon"
-                    [ngClass]="sortColumn === 'name'? 'text-black' :''"
+                    [ngClass]="sortColumn === 'productName'? 'text-black' :''"
                     class="ml-3 bg-transparent border-none cursor-pointer p-0 text-base text-black-600 transition-colors duration-300"
                   ></fa-icon>
-                  <!-- <ng-container *ngIf="sortColumn === 'name'">
-                  </ng-container> -->
                 </th>
                 <th
-                (click)="sortData('name')"
+                (click)="sortData('seller')"
                   class="w-1/3 cursor-pointer"
                   >
-                  Name
+                 Seller Name
                   <fa-icon
                     [icon]="sortIcon"
-                    [ngClass]="sortColumn === 'email'? 'text-black' :''"
+                    [ngClass]="sortColumn === 'name'? 'text-black' :''"
                     class="ml-3 bg-transparent border-none cursor-pointer p-0 text-base text-black-600 transition-colors duration-300"
                     ></fa-icon>
-                  <ng-container *ngIf="sortColumn === 'email'">
-                  </ng-container>
                 </th>
                 <th class="w-[20%]">Action</th>
               </tr>
