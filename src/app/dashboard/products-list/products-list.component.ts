@@ -53,7 +53,30 @@ export class ProductsListComponent implements OnInit {
   }
 
   handleDeleteProduct(id:string){
-
+    console.log(id);
+    
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((res) =>{
+      if(res.isConfirmed){
+        this.productsService.deleteSingleProduct(id).subscribe(res =>{
+          if (res?.deletedCount > 0) {
+            this.getProducts();
+          }
+          Swal.fire('Deleted!', 'This product has been deleted.', 'success');
+        },
+       (err =>{
+        Swal.fire('Internal Error');
+       }) 
+        )
+      }
+    })
   }
   
 }
