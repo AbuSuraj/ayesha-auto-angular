@@ -25,7 +25,7 @@ export class SignupComponent {
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/)]],
-      userType: ['Buyer', [Validators.required]],
+      accountType: ['buyer', [Validators.required]],
     });
   }
 
@@ -37,7 +37,7 @@ export class SignupComponent {
       let userData = {
         name: user.name,
         email: user.email,
-        userType: user.userType
+        accountType: user.accountType
       }
       this.userService.createUser(userData).subscribe(()=>{
         this.authService.signUpWithEmail(user.email, user.password);
@@ -69,7 +69,7 @@ export class SignupComponent {
       const userInfo: User = {
         name:user?.user?.displayName ,
         email:user.user?.email,
-        userType: 'Buyer'
+        accountType: 'buyer'
       } 
     
       this.userService.createUser(userInfo).subscribe(()=>{

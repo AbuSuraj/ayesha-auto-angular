@@ -4,5 +4,5 @@ export interface User {
     name: string | null | undefined;
     photoURL?: string;
     // emailVerified: boolean;
-    userType: string
+    accountType: string
 }
