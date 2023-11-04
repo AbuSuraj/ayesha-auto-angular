@@ -125,5 +125,26 @@ export class ProductsService {
     return this.http.get<any>(url, { headers });
   }
 
-  
+  // delete reported porducts 
+  deleteReportedProduct(id:string):Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    });
+
+    const url = `${this.BASE_URL}/reportedItem/${id}`;
+    
+    return this.http.delete(url, { headers });
+  }
+  // delete reported porducts 
+  deleteReport(id:string):Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    });
+
+    const url = `${this.BASE_URL}/report/${id}`;
+    
+    return this.http.delete(url, { headers });
+  }
 }

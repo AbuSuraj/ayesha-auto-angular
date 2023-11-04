@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { ProductsService } from 'src/app/shared/services/service-proxies/products/products.service';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
+import { catchError, forkJoin, switchMap } from 'rxjs';
 @Component({
   selector: 'app-report-list',
   templateUrl: './report-list.component.html',
@@ -49,6 +51,63 @@ constructor(private productsService: ProductsService, private toaster: ToastrSer
       this.toaster.error("Fail to load reports-list", 'Internal Error');
     }
     )
+  }
+
+  sortData(column: string){
+    if(this.sortColumn === column){
+      this.sortDirection = this.sortDirection === 'asc' ? 'asc' : 'desc';
+    } else{
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+    this.sortColumn = column
+    this.sortIcon = this.sortDirection === 'asc' ? this.faArrowUp : this.faArrowDown;
+    this.getReports(this.currentPage);
+  
+  }
+
+  deleteReportedItems(reportId:string, reportedProductId:string){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        forkJoin([
+          this.productsService.deleteReport(reportId),
+          this.productsService.deleteReportedProduct(reportedProductId)
+        ]).pipe(
+          switchMap(([reportResponse, reportedProductResponse]) => {
+            if (reportedProductResponse?.deletedCount > 0) {
+              this.getReports(this.currentPage);
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            }
+            return [];
+          }),
+          catchError((error) => {
+            this.toaster.error('Error deleting', 'Internal Server Error');
+            return [];
+          })
+        ).subscribe();
+        // this.productsService.deleteReport(reportId).subscribe(res =>{
+        //   this.productsService.deleteReportedProduct(reportedProductId).subscribe(res =>{
+        //     if(res?.deletedCount>0){
+        //       this.getReports(this.currentPage);
+        //       Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        //     }
+        //   },
+        //   err =>{
+        //     this.toaster.error('Error deleting', 'Internal Server Error')
+        //   }
+        //    )
+        // })
+
+      }
+    })
   }
 
 }
