@@ -66,4 +66,17 @@ export class ProductsService {
   return this.http.get<any>(`${this.BASE_URL}/advertisementItem`)
   }
 
+
+  // get products for a specific seller 
+  getProductsBySeller(email:any):Observable<any> {
+    console.log(email);
+    
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+    })
+    // return this.http.get<[]>('https://ayeshaauto.vercel.app/myproducts/seller/sarwar@b.com')
+    return this.http.get<any>(`${this.BASE_URL}/myproducts/seller/${email}`,{headers});
+  }
+
 }
