@@ -21,10 +21,10 @@
             <td> ${{ product.resalePrice }}</td>
             <td>
               <ng-container *ngIf="product?.isPaid; else available">
-                <p>Sold</p>
+                <p class="text-sm bg-sky-400 text-center w-10">Sold</p>
               </ng-container>
               <ng-template #available>
-                <p>Available</p>
+                <p class="w-20 bg-secondary text-center ">Available</p>
               </ng-template>
             </td>
             <td>
