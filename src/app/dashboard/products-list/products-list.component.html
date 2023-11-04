@@ -3,8 +3,8 @@
       Total Products: {{ products.length }}
     </h2>
     <div class="overflow-x-auto">
-      <table class="table w-full">
-        <thead>
+      <table class="table  w-4/5 mx-auto">
+        <thead class="bg-slate-100">
           <tr>
             <!-- <th></th> -->
             <th>Name</th>
@@ -15,10 +15,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let product of products; let i = index">
+          <tr class="hover:bg-slate-100" *ngFor="let product of products; let i = index">
             <!-- <th>{{ i + 1 }}</th> -->
             <td>{{ product.productName }}</td>
-            <td>{{ product.resalePrice }}</td>
+            <td> ${{ product.resalePrice }}</td>
             <td>
               <ng-container *ngIf="product?.isPaid; else available">
                 <p>Sold</p>
