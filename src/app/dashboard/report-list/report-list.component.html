@@ -1,1 +1,81 @@
-<p>report-list works!</p>
+<div class="flex w-4/5 flex-col-reverse md:flex-row lg:flex-row md:items-center">
+    <div class="ml-4 w-full">
+        <h2 class="text-3xl my-5 ml-32 md:ml-64">
+          Numbers of Reports: {{ total }}
+        </h2>
+  
+        <div class="overflow-x-auto shadow-green-100 h-auto md:h-[330px]">
+          <table class="table w-3/4 ml-8 mr-12">
+            <thead class="bg-slate-100">
+              <tr>
+                <th
+                  (click)="sortData('productName')"
+                  class="w-1/3 cursor-pointer"
+                >
+                  Product Name
+                  <fa-icon
+                    [icon]="sortIcon"
+                    [ngClass]="sortColumn === 'name'? 'text-black' :''"
+                    class="ml-3 bg-transparent border-none cursor-pointer p-0 text-base text-black-600 transition-colors duration-300"
+                  ></fa-icon>
+                  <!-- <ng-container *ngIf="sortColumn === 'name'">
+                  </ng-container> -->
+                </th>
+                <th
+                (click)="sortData('name')"
+                  class="w-1/3 cursor-pointer"
+                  >
+                  Name
+                  <fa-icon
+                    [icon]="sortIcon"
+                    [ngClass]="sortColumn === 'email'? 'text-black' :''"
+                    class="ml-3 bg-transparent border-none cursor-pointer p-0 text-base text-black-600 transition-colors duration-300"
+                    ></fa-icon>
+                  <ng-container *ngIf="sortColumn === 'email'">
+                  </ng-container>
+                </th>
+                <th class="w-[20%]">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+              <tr class="hover" *ngFor="let report of reports  | paginate: { id: 'server', itemsPerPage: 5, currentPage: currentPage, totalItems: total }">
+                <td>{{ report.productName }}</td>
+                <td>{{ report.seller }}</td>
+                <td>
+                  <!-- <button  class="btn btn-xs btn-error">
+                    Delete
+                  </button> -->
+    
+                  <button (click)="deleteReportedItems(report._id, report.product_id)" class="delete-button" type="button">
+                    <span class="button__text">Delete</span>
+                    <span class="button__icon"><svg class="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><title></title><path d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path><line style="stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px" x1="80" x2="432" y1="112" y2="112"></line><path d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path><line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="256" x2="256" y1="176" y2="400"></line><line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="184" x2="192" y1="176" y2="400"></line><line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="328" x2="320" y1="176" y2="400"></line></svg></span>
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="loading">
+                <td [attr.colspan]="6" class="text-center py-5">
+                  <app-loader></app-loader>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="w-[32rem] md:w-[46rem] mx-auto mt-10">
+          <pagination-controls 
+          [previousLabel]="labels.previousLabel"
+          [nextLabel]="labels.nextLabel"
+                             [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+                             [screenReaderPageLabel]="labels.screenReaderPageLabel"
+                             [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+          id="server"  (pageChange)="getReports($event)"></pagination-controls>
+        </div>
+      </div>
+    
+    <!-- <div class=" w-[400px] md:w-1/4 my-5">
+      <ng-lottie  width="400px" height="400px" [options]="options"></ng-lottie>
+    </div>   -->
+  </div>
+  <!-- <ng-container class="text-center" *ngIf="loading">
+    <app-loader></app-loader>
+  </ng-container>  -->

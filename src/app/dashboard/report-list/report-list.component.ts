@@ -89,7 +89,7 @@ constructor(private productsService: ProductsService, private toaster: ToastrSer
             return [];
           }),
           catchError((error) => {
-            this.toaster.error('Error deleting', 'Internal Server Error');
+            this.toaster.error(`${error} `, 'Internal Server Error');
             return [];
           })
         ).subscribe();
