@@ -48,12 +48,12 @@
                 </div>
             </td>
           </tr>
-          <tr *ngIf="loading">
-            <td [attr.colspan]="6" class="text-center py-5">
-              <div class="my-5 mx-auto w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
-            </td>
-          </tr>
         </tbody>
+        <tr *ngIf="loading">
+          <td [attr.colspan]="6" class="text-center py-5">
+            <div class="my-5 mx-auto w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+          </td>
+        </tr>
       </table>
     </div>
   </div>

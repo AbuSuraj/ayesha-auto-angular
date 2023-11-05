@@ -49,12 +49,12 @@
                   </button>
                 </td>
               </tr>
-              <tr *ngIf="loading">
-                <td [attr.colspan]="6" class="text-center py-5">
-                  <app-loader></app-loader>
-                </td>
-              </tr>
             </tbody>
+            <tr *ngIf="loading">
+              <td [attr.colspan]="6" class="text-center py-5">
+                <app-loader></app-loader>
+              </td>
+            </tr>
           </table>
         </div>
         <div class="w-[32rem] md:w-[46rem] mx-auto mt-10">
