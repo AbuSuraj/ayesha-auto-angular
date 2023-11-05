@@ -11,8 +11,8 @@
       <tbody>
         <tr class="hover" *ngFor="let order of orders">
           <td class="border">{{ order.productName }}</td>
-          <td class="border">{{ order.resalePrice }}</td>
-          <td class="border ">
+          <td class="border">{{ order.resalePrice | currency  }}</td>
+          <td class="border">
             <img class=" w-24 h-24 rounded-full" [src]="order.image" alt="order.productName">
             </td>
           <td class="border">{{ order.paid }}</td>
