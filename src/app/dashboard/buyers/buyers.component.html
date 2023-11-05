@@ -37,15 +37,12 @@
               <th class="w-[20%]">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="!loading">
            
             <tr class="hover" *ngFor="let buyer of buyers  | paginate: { id: 'server', itemsPerPage: 5, currentPage: currentPage, totalItems: total }">
               <td>{{ buyer.name }}</td>
               <td>{{ buyer.email }}</td>
-              <td>
-                <!-- <button  class="btn btn-xs btn-error">
-                  Delete
-                </button> -->
+              <td> 
   
                 <button (click)="handleDelete(buyer._id)" class="delete-button" type="button">
                   <span class="button__text">Delete</span>
@@ -53,12 +50,13 @@
                 </button>
               </td>
             </tr>
-            <tr *ngIf="loading">
-              <td [attr.colspan]="6" class="text-center py-5">
-                <app-loader></app-loader>
-              </td>
-            </tr>
           </tbody>
+          <tr *ngIf="loading">
+            <td [attr.colspan]="6" class="text-center py-5">
+              <app-loader></app-loader>
+            </td>
+          </tr>
+     
         </table>
       </div>
       <div class="w-[32rem] md:w-[46rem] mx-auto mt-10">
