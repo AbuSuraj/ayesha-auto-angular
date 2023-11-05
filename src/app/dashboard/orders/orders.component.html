@@ -1,1 +1,23 @@
-<p>orders works!</p>
+<div class="overflow-x-auto mx-auto">
+    <table class="table w-3/4 mx-auto my-10 ">
+      <thead class="bg-slate-100">
+        <tr>
+          <th class="">Product Name</th>
+          <th class="">Price</th>
+          <th class="">Images</th>
+          <th class="">Payment Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hover" *ngFor="let order of orders">
+          <td class="border">{{ order.productName }}</td>
+          <td class="border">{{ order.resalePrice }}</td>
+          <td class="border ">
+            <img class=" w-24 h-24 rounded-full" [src]="order.image" alt="order.productName">
+            </td>
+          <td class="border">{{ order.paid }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
