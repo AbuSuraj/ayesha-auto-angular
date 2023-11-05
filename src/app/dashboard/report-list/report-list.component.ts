@@ -80,13 +80,14 @@ constructor(private productsService: ProductsService, private toaster: ToastrSer
     }).then((result) => {
       if (result.isConfirmed) {
         forkJoin([
-          this.productsService.deleteReport(reportId),
+          this.productsService.deleteReport(reportedProductId),
           this.productsService.deleteReportedProduct(reportedProductId)
         ]).pipe(
           switchMap(([reportResponse, reportedProductResponse]) => {
-            if (reportedProductResponse?.deletedCount > 0) {
+            console.log(reportResponse, reportedProductResponse)
+            if (reportResponse?.deletedCount > 0) {
               this.getReports(this.currentPage);
-             
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
             }
             return [];
           }),
@@ -95,20 +96,22 @@ constructor(private productsService: ProductsService, private toaster: ToastrSer
             return [];
           })
         ).subscribe(res =>{
+          this.getReports(this.currentPage);
           Swal.fire("Deleted!", "Your file has been deleted.", "success");
         });
-        // this.productsService.deleteReport(reportId).subscribe(res =>{
-        //   this.productsService.deleteReportedProduct(reportedProductId).subscribe(res =>{
-        //     if(res?.deletedCount>0){
-        //       this.getReports(this.currentPage);
-        //       Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        //     }
-        //   },
-        //   err =>{
-        //     this.toaster.error('Error deleting', 'Internal Server Error')
-        //   }
-        //    )
-        // })
+    
+    //     this.productsService.deleteReport(reportedProductId).subscribe(res =>{
+    //       this.productsService.deleteReportedProduct(reportedProductId).subscribe(res =>{
+    //         if(res?.deletedCount>0){
+    //           this.getReports(this.currentPage);
+    //           Swal.fire("Deleted!", "Your file has been deleted.", "success");
+    //         }
+    //       },
+    //       err =>{
+    //         this.toaster.error('Error deleting', 'Internal Server Error')
+    //       }
+    //        )
+    //     })
 
       }
     })
