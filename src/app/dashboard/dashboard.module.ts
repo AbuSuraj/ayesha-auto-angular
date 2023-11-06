@@ -15,6 +15,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from '../shared/shared.module';
+import { PaymentComponent } from './orders/payment/payment.component';
 
 export function playerFactory():any { // add this line
   return import('lottie-web'); // add this line
@@ -29,7 +30,8 @@ export function playerFactory():any { // add this line
     AddCategoryComponent,
     AddProductComponent,
     ProductsListComponent,
-    OrdersComponent
+    OrdersComponent,
+    PaymentComponent
   ],
   imports: [
     CommonModule,
