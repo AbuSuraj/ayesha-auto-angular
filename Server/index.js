@@ -368,21 +368,92 @@ app.post('/report',verifyJWT,async (req,res) =>{
 
     // payment
 
-    app.post('/create-payment-intent', async (req, res) => {
-      const booking = req.body;
-      console.log(booking);
-      const price = booking.resalePrice;
-      const amount = 1000 * 100;
+    // app.post('/create-payment-intent', async (req, res) => {
+    //   const booking = req.body;
+    //   console.log(booking);
+    //   const price = booking.resalePrice;
+    //   const amount = 1000 * 100;
 
-      const paymentIntent = await stripe.paymentIntents.create({
-        currency: 'bdt',
-        amount: amount,
-        payment_method_types: ['card'],
-      });
-      res.send({
-        clientSecret: paymentIntent.client_secret,
-      });
-    });
+    //   const paymentIntent = await stripe.paymentIntents.create({
+    //     currency: 'bdt',
+    //     amount: amount,
+    //     payment_method_types: ['card'],
+    //   });
+    //   res.send({
+    //     clientSecret: paymentIntent.client_secret,
+    //   });
+    // });
+    app.post("/checkout", async (req, res, next) => {
+      console.log(req.body.items);
+      try{
+          const session = await stripe.checkout.sessions.create({
+            shipping_address_collection: {
+              allowed_countries: ['US', 'CA', 'BD', 'IN', 'GB', 'AU', 'DE', 'FR', 'IT', 'ES', 'CN', 'JP'],
+            },
+              shipping_options: [
+                  {
+                    shipping_rate_data: {
+                      type: 'fixed_amount',
+                      fixed_amount: {
+                        amount: 0,
+                        currency: 'usd',
+                      },
+                      display_name: 'Free shipping',
+                      delivery_estimate: {
+                        minimum: {
+                          unit: 'business_day',
+                          value: 5,
+                        },
+                        maximum: {
+                          unit: 'business_day',
+                          value: 7,
+                        },
+                      },
+                    },
+                  },
+                  {
+                    shipping_rate_data: {
+                      type: 'fixed_amount',
+                      fixed_amount: {
+                        amount: 1500,
+                        currency: 'usd',
+                      },
+                      display_name: 'Next day air',
+                      delivery_estimate: {
+                        minimum: {
+                          unit: 'business_day',
+                          value: 1,
+                        },
+                        maximum: {
+                          unit: 'business_day',
+                          value: 1,
+                        },
+                      },
+                    },
+                  },
+                ],
+              line_items:  req.body.items.map((item) => ({
+                  price_data: {
+                    currency: 'usd',
+                    product_data: {
+                      name: item.productName,
+                      images: [item.image]
+                    },
+                    unit_amount: item.resalePrice * 100 ?? 0,
+                  },
+                  quantity: item?.quantity ?? 1,
+                })),
+                 mode: "payment",
+                 success_url: "https://barohal-store-server.netlify.app/success.html",
+                 cancel_url: "https://barohal-store-server.netlify.app/cancel.html",
+              });
+      
+          res.status(200).send(session)
+      }
+      catch(err){
+              console.log(err)
+          }
+  })
 
     app.post('/payments', async (req, res) => {
       const payment = req.body;
