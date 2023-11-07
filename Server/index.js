@@ -446,6 +446,10 @@ app.post('/report',verifyJWT,async (req,res) =>{
                  mode: "payment",
                  success_url: "https://barohal-store-server.netlify.app/success.html",
                  cancel_url: "https://barohal-store-server.netlify.app/cancel.html",
+
+                //  dynamic 
+                //  success_url: req.body.successUrl,
+                //  cancel_url: req.body.cancelUrl,
               });
       
           res.status(200).send(session)
