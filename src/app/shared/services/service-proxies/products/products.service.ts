@@ -10,7 +10,8 @@ import { Product } from 'src/app/shared/interfaces/products.interface';
   providedIn: 'root'
 })
 export class ProductsService {
-  private BASE_URL = 'https://ayeshaauto.vercel.app';
+  // private BASE_URL = 'https://ayeshaauto.vercel.app';
+  private BASE_URL = 'https://auto-reseller-api.vercel.app';
 
   constructor(private http: HttpClient) { }
 

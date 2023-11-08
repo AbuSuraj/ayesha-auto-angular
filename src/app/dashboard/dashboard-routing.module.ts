@@ -9,6 +9,8 @@ import { ReportListComponent } from './report-list/report-list.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { OrdersComponent } from './orders/orders.component';
+import { SuccessComponent } from './orders/payment/success/success.component';
+import { FailureComponent } from './orders/payment/failure/failure.component';
 
 const routes: Routes = [
   {path:'', component: DashboardComponent ,
@@ -21,6 +23,8 @@ const routes: Routes = [
     {path:'add-category', component: AddCategoryComponent},
     {path:'products', component: ProductsListComponent},
     {path:'add-product', component: AddProductComponent},
+    {path:'success', component: SuccessComponent},
+    {path:'failure', component: FailureComponent},
   ]},
 ];
 

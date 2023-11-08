@@ -32,26 +32,32 @@ export class OrdersComponent implements OnInit {
       // console.log(orderArray);
       
       this.stripe.createPayment(orderArray).subscribe(async (res: any) => {
+   console.log(res);
+        
         let stripe = await loadStripe(environment.stripe.publicKey);
         stripe?.redirectToCheckout({
           sessionId: res.id,
-        }).then((result)=>{
-          if (result.error) {
-            console.error(result.error);
-          } else if (result) {
-            console.log(result);
+        }) 
+        // .then((result)=>{
+        //   if (result.error) {
+        //     console.error(result.error);
+        //   } else if (result) {
+        //     console.log(result);
             
-            // Payment was successful, send payment information to your server
-            const payment = {
-              resalePrice: order.resalePrice,
-              transactionId: result,
-              email: order.email,
-              bookingId: order._id,
-              product_id: order.product_id,
-            };
-          }
-        
-        })
+        //     // Payment was successful, send payment information to your server
+        //     const payment = {
+        //       resalePrice: order.resalePrice,
+        //       transactionId: result,
+        //       email: order.email,
+        //       bookingId: order._id,
+        //       product_id: order.product_id,
+        //     };
+        //     this.stripe.payment(payment).subscribe(res =>{
+        //       console.log(res);
+              
+        //     })
+        //   }
+        // })
         console.log(res)
       });
     } else {

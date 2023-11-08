@@ -6,8 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthTokenService {
-  private BASE_URL = 'https://ayeshaauto.vercel.app';
-
+  // private BASE_URL = 'https://ayeshaauto.vercel.app';
+  private BASE_URL = 'https://auto-reseller-api.vercel.app'; 
+  
   constructor(private http: HttpClient) {}
 
   // get auth token from

@@ -384,9 +384,24 @@ app.post('/report',verifyJWT,async (req,res) =>{
     //   });
     // });
     app.post("/checkout", async (req, res, next) => {
-      console.log(req.body.items);
+      // console.log(req.body.items);
+      let customerId = "";
+      const user = await usersCollection.findOne({email: req.body.items[0].email});
+
+      console.log(user);
+
+      if (!user){
+        const customer = await stripe.customers.create({
+          email:req.body.items[0].email,
+        });
+        customerId = customer.id;
+      } else{
+        customerId = user.stripeCustomerId;
+      }
+
       try{
           const session = await stripe.checkout.sessions.create({
+            customer: customerId,
             shipping_address_collection: {
               allowed_countries: ['US', 'CA', 'BD', 'IN', 'GB', 'AU', 'DE', 'FR', 'IT', 'ES', 'CN', 'JP'],
             },
@@ -443,50 +458,261 @@ app.post('/report',verifyJWT,async (req,res) =>{
                   },
                   quantity: item?.quantity ?? 1,
                 })),
+                metadata:{
+                  userId:customerId,
+                  cart: JSON.stringify(req.body.items[0])
+                 },
+                 customer:   customerId,
                  mode: "payment",
-                 success_url: "https://barohal-store-server.netlify.app/success.html",
+                 success_url: "https://barohal-store-server.netlify.app/success.html?session_id={CHECKOUT_SESSION_ID}",
                  cancel_url: "https://barohal-store-server.netlify.app/cancel.html",
-
-                //  dynamic 
-                //  success_url: req.body.successUrl,
-                //  cancel_url: req.body.cancelUrl,
+                 //  dynamic 
+                 //  success_url: req.body.successUrl,
+                 //  cancel_url: req.body.cancelUrl,
               });
-      
+              // console.log(session)
+
+      //         if(user){
+      //           const payment = {
+      //             resalePrice: req.body.items[0].resalePrice,
+      //             trabsactionId: customer.metadata.userId,
+      //             email: req.body.items[0].email,
+      //             bookingId: req.body.items[0]._id,
+      //             productId: req.body.items[0].product_id
+      //           }
+      //             const result = await paymentsCollection.insertOne(payment);
+      // const id = payment.bookingId;
+      // const product_id = payment.product_id;
+      // const filter = { _id: ObjectId(id) };
+      // const query = { _id: ObjectId(product_id) };
+      // const updatedDoc = {
+      //   $set: {
+      //     paid: true,
+      //     transactionId: payment.transactionId,
+      //   },
+      // };
+      // const updatedDoc2 = {
+      //   $set: {
+      //     isPaid: true,
+      //   },
+      // };
+      // const updatedResult = await bookingsCollection.updateOne(
+      //   filter,
+      //   updatedDoc
+      // );
+      // const updatedResult2 = await productCollection.updateOne(
+      //   query,
+      //   updatedDoc2
+      // );
+      //         }
           res.status(200).send(session)
       }
+      
       catch(err){
               console.log(err)
           }
   })
+  const endpointSecret =process.env.STRIPE_WEBHOOK_SECRET_KEY ;
+  app.post('/stripe-webhook', express.raw({type: 'application/json'}), (request, response) => {
+    console.log('webhook')
+    const sig = request.headers['stripe-signature'];
+  
+    let event;
+  
+    try {
+      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    } catch (err) {
+      response.status(400).send(`Webhook Error: ${err.message}`);
+      return;
+    }
+  
+    if(eventType === 'checkout.session.completed'){
+      stripe.customers.retrieve(data.customer)
+      .then(async(customer)=>{
+        try{
 
-    app.post('/payments', async (req, res) => {
-      const payment = req.body;
-      const result = await paymentsCollection.insertOne(payment);
-      const id = payment.bookingId;
-      const product_id = payment.product_id;
-      const filter = { _id: ObjectId(id) };
-      const query = { _id: ObjectId(product_id) };
-      const updatedDoc = {
-        $set: {
-          paid: true,
-          transactionId: payment.transactionId,
-        },
-      };
-      const updatedDoc2 = {
-        $set: {
-          isPaid: true,
-        },
-      };
-      const updatedResult = await bookingsCollection.updateOne(
-        filter,
-        updatedDoc
-      );
-      const updatedResult2 = await productCollection.updateOne(
-        query,
-        updatedDoc2
-      );
-      res.send(result);
-    });
+          console.log(customer);
+        }
+        catch (err) {
+          console.log(typeof createOrder);
+          console.log(err);
+        }
+      })
+      .catch((error)=>{console.log(error.message);})
+    }
+    // Handle the event
+    // switch (event.type) {
+    //   case 'checkout.session.async_payment_succeeded':
+    //     const checkoutSessionAsyncPaymentSucceeded = event.data.object;
+    //     // Then define and call a function to handle the event checkout.session.async_payment_succeeded
+    //     break;
+    //   case 'checkout.session.completed':
+    //     const checkoutSessionCompleted = event.data.object;
+    //     // Then define and call a function to handle the event checkout.session.completed
+    //     break;
+    //   // ... handle other event types
+    //   default:
+    //     console.log(`Unhandled event type ${event.type}`);
+    // }
+  
+    // Return a 200 response to acknowledge receipt of the event
+    response.send().end();
+  })
+
+  // app.get('/order/success', async (req, res) => {
+  //   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+  //   const customer = await stripe.customers.retrieve(session.customer);
+  
+  //   res.send(`<html><body><h1>Thanks for your order, ${customer.name}!</h1></body></html>`);
+  // });
+
+  // app.post('/stripe-webhook', express.raw({ type: 'application/json' }), async (request, response) => {
+  //   const sig = request.headers['stripe-signature'];
+  //   let data;
+  //   let eventType; 
+  //   if(endpointSecret){ 
+  //   let event;
+  //   try {
+  //     event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+  //     console.log('Webhook verified');
+  //   } catch (err) {
+  //     response.status(400).send(`Webhook Error: ${err.message}`);
+  //     return;
+  //   }
+
+  //   data = event.data.object;
+  //   eventType = event.data.type;
+  // } else{
+  //   data = req.body.data.object;
+  //   eventType = req.body.type;
+  // }
+  
+  //   // Handle the event
+  //   switch (event.type) {
+  //     case 'checkout.session.async_payment_succeeded':
+  //       // Handle the case when a payment is asynchronously succeeded
+  //       // You can insert payment data into the payments collection and update the booking and product status
+  
+  //       const payment = event.data.object;
+  //       const result = await paymentsCollection.insertOne(payment);
+  //       const id = payment.bookingId;
+  //       const product_id = payment.product_id;
+  //       const filter = { _id: ObjectId(id) };
+  //       const query = { _id: ObjectId(product_id) };
+  //       const updatedDoc = {
+  //         $set: {
+  //           paid: true,
+  //           transactionId: payment.transactionId,
+  //         },
+  //       };
+  //       const updatedDoc2 = {
+  //         $set: {
+  //           isPaid: true,
+  //         },
+  //       };
+  //       const updatedResult = await bookingsCollection.updateOne(filter, updatedDoc);
+  //       const updatedResult2 = await productCollection.updateOne(query, updatedDoc2);
+  
+  //       response.send('Payment succeeded and updated in the database');
+  //       break;
+  
+  //     case 'checkout.session.completed':
+  //       // Handle the case when a payment is completed
+  //       // You can insert payment data into the payments collection
+  
+  //       const completedPayment = event.data.object;
+  //       const completedResult = await paymentsCollection.insertOne(completedPayment);
+  
+  //       response.send('Payment completed and updated in the database');
+  //       break;
+  
+  //     default:
+  //       console.log(`Unhandled event type ${event.type}`);
+  //   }
+  
+  //   // Return a 200 response to acknowledge receipt of the event
+  //   response.send();
+  // });
+  
+    const createOrder = async (customer, data) => {
+      const items = JSON.parse(customer.metadata.cart);
+      const products = items.map((item) => {
+        return {
+          productId: item.id,
+          quantity: item.cartQuantity,
+        };
+      });
+    
+      const payment ={
+        userId: customer.metadata.userId,
+        customerId: data.customer,
+        paymentIntentId: data.payment_intent,
+        products,
+        subtotal: data.amount_subtotal,
+        total: data.amount_total,
+        shipping: data.customer_details,
+        payment_status: data.payment_status,
+      }
+      try{
+
+        const result = await paymentsCollection.insertOne(payment);
+        const id = payment.bookingId;
+        const product_id = payment.product_id;
+        const filter = { _id: ObjectId(id) };
+        const query = { _id: ObjectId(product_id) };
+        const updatedDoc = {
+          $set: {
+            paid: true,
+            transactionId: payment.transactionId,
+          },
+        };
+        const updatedDoc2 = {
+          $set: {
+            isPaid: true,
+          },
+        };
+        const updatedResult = await bookingsCollection.updateOne(
+          filter,
+          updatedDoc
+        );
+        const updatedResult2 = await productCollection.updateOne(
+          query,
+          updatedDoc2
+        );
+      }
+      catch(err){
+        console.log(err.message);
+      }
+      data.send(result);
+    };
+    // app.post('/payments', async (req, res) => {
+    //   const payment = req.body;
+    //   const result = await paymentsCollection.insertOne(payment);
+    //   const id = payment.bookingId;
+    //   const product_id = payment.product_id;
+    //   const filter = { _id: ObjectId(id) };
+    //   const query = { _id: ObjectId(product_id) };
+    //   const updatedDoc = {
+    //     $set: {
+    //       paid: true,
+    //       transactionId: payment.transactionId,
+    //     },
+    //   };
+    //   const updatedDoc2 = {
+    //     $set: {
+    //       isPaid: true,
+    //     },
+    //   };
+    //   const updatedResult = await bookingsCollection.updateOne(
+    //     filter,
+    //     updatedDoc
+    //   );
+    //   const updatedResult2 = await productCollection.updateOne(
+    //     query,
+    //     updatedDoc2
+    //   );
+    //   res.send(result);
+    // });
 
     app.get('/bookings/:id', async (req, res) => {
       const bookingId = req.params.id;

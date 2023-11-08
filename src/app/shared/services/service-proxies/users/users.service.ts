@@ -7,7 +7,8 @@ import { User } from 'src/app/shared/interfaces/user.interface';
   providedIn: 'root'
 })
 export class UsersService {
-  private BASE_URL = 'https://ayeshaauto.vercel.app';
+  // private BASE_URL = 'https://ayeshaauto.vercel.app';
+  private BASE_URL = 'https://auto-reseller-api.vercel.app';
   private BASE_URL_LOCAL = 'http://localhost:5000'
 
   constructor(private http: HttpClient) {}
@@ -78,7 +79,7 @@ export class UsersService {
         'Authorization': `bearer ${localStorage.getItem("accessToken")}`,
       }
     )
-    return this.http.patch<any>(`https://ayeshaauto.vercel.app/verifySeller/${id}`,{},{headers})
+    return this.http.patch<any>(`${this.BASE_URL}/verifySeller/${id}`,{headers})
   }
 
 }

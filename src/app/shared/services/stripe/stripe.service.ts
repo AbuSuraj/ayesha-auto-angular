@@ -7,19 +7,22 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StripeService {
-  private BASE_URL = 'https://ayeshaauto.vercel.app';
+  private BASE_URL = 'https://auto-reseller-api.vercel.app';
   private BASE_URL_LOCAL = 'http://localhost:5000'
 
   constructor(private http:HttpClient) { }
 
  createPayment(order:any):Observable<any>{
   // console.log(order);
-  
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+  })
 return  this.http .post(`${this.BASE_URL_LOCAL}/checkout`, {
     items: order ,
     // successUrl: "https://barohal-store-server.netlify.app/success.html",
     // cancelUrl: "https://barohal-store-server.netlify.app/cancel.html",
-  })
+  },{ headers })
 }
 
 payment(payment:any){
@@ -29,6 +32,10 @@ payment(payment:any){
     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
   })
   return this.http.post(`${this.BASE_URL_LOCAL}/payments`, body, { headers })
+}
+getUserInfo(){
+  
+  return this.http.get(`${this.BASE_URL_LOCAL}/order/success`)
 }
  }
 
